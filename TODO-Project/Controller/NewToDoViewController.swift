@@ -24,6 +24,19 @@ class NewToDoViewController: BaseViewController {
 
     }
     
+    override func configureNavigation() {
+        super.configureNavigation()
+        navigationItem.title = "새로운 할 일"
+        
+        // left button
+        let leftButtonItem = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(leftButtonItemClicked)) // title 부분 수정
+        navigationItem.leftBarButtonItem = leftButtonItem
+        
+        let rightButtonItem = UIBarButtonItem(title: "추가", style: .done, target: self, action: nil) // title 부분 수정
+        navigationItem.rightBarButtonItem = rightButtonItem
+    }
+    
+    
     @objc func rightButtonClicked(_ sender : UIButton) {
         
         print(#function)
@@ -53,11 +66,12 @@ class NewToDoViewController: BaseViewController {
         default :
             let vc = DateViewController()
             navigationController?.pushViewController(vc, animated: true)
-            
 
         }
-        
-//
+    }
+    
+    @objc func leftButtonItemClicked(_ sender : UIButton) {
+        dismiss(animated: true)
     }
 
 }

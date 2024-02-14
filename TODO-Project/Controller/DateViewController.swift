@@ -14,7 +14,6 @@ class DateViewController: BaseViewController {
     var datePickerSpace : ((String) -> Void)?
 
     let datePicker = UIDatePicker().then {
-        $0.setValue(UIColor.white, forKeyPath: "textColor")
         $0.preferredDatePickerStyle = .wheels
         $0.datePickerMode = .date
         $0.locale = Locale(identifier: "ko_KR")
@@ -42,7 +41,8 @@ class DateViewController: BaseViewController {
     
     //TODO: - DatePicker 글씨색 변경 필요
     override func configureView() {
-        view.backgroundColor = .white
+        super.configureView()
+        datePicker.setValue(UIColor.white, forKeyPath: "textColor")
     }
     
     @objc func dateChange(_ sender: UIDatePicker) {
