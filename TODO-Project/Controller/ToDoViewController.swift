@@ -21,8 +21,11 @@ class ToDoViewController: BaseViewController {
         
     }
 
-    
-    override func configureView() {
+    override func configureNavigation() {
+        super.configureNavigation()
+        
+        navigationController?.isToolbarHidden = false
+        
         var items : [UIBarButtonItem] = []
         
         //TODO: - image와 label 추가하려면 UIButton 이용해서 Custom,으로 제작해야 됨. ---> 나중에
@@ -34,7 +37,7 @@ class ToDoViewController: BaseViewController {
         items.append(flexibleSpace)
         items.append(rightToolbarItem)
 
-        mainView.toolBar.setItems(items, animated: true)
+        toolbarItems = items
     }
     
     @objc func leftToolbarItemClicked(_ sender : UIButton) {

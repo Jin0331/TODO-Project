@@ -20,7 +20,7 @@ class NewToDoView : BaseView {
     }
     
     let titleTextField = UITextField().then {
-        $0.attributedPlaceholder = NSAttributedString(string: "제목",
+        $0.attributedPlaceholder = NSAttributedString(string: " 제목",
                                                       attributes: [NSAttributedString.Key.foregroundColor : UIColor.systemGray2,
                                                                    NSAttributedString.Key.font: UIFont(name: "Georgia", size: 16)!])
         $0.backgroundColor = .clear
@@ -73,8 +73,7 @@ class NewToDoView : BaseView {
         
         memoTextView.snp.makeConstraints { make in
             make.top.equalTo(titleTextField.snp.bottom).offset(3)
-            make.leading.equalTo(titleTextField)
-            make.trailing.equalTo(topView).inset(5)
+            make.horizontalEdges.equalTo(topView).inset(15)
             make.height.equalTo(topView).multipliedBy(0.75)
         }
         

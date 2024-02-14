@@ -23,6 +23,7 @@
 		DBF3ABCE2B7CB908001ABADF /* DateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF3ABCD2B7CB908001ABADF /* DateViewController.swift */; };
 		DBF3ABD02B7CFDCC001ABADF /* TagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF3ABCF2B7CFDCC001ABADF /* TagViewController.swift */; };
 		DBF3ABD22B7D02B2001ABADF /* PriorityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF3ABD12B7D02B2001ABADF /* PriorityViewController.swift */; };
+		DBF3ABD42B7D0F54001ABADF /* ToDoItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF3ABD32B7D0F54001ABADF /* ToDoItemView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		DBF3ABCD2B7CB908001ABADF /* DateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateViewController.swift; sourceTree = "<group>"; };
 		DBF3ABCF2B7CFDCC001ABADF /* TagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagViewController.swift; sourceTree = "<group>"; };
 		DBF3ABD12B7D02B2001ABADF /* PriorityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityViewController.swift; sourceTree = "<group>"; };
+		DBF3ABD32B7D0F54001ABADF /* ToDoItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoItemView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +141,7 @@
 			isa = PBXGroup;
 			children = (
 				DBF3ABCB2B7CB017001ABADF /* ItemView.swift */,
+				DBF3ABD32B7D0F54001ABADF /* ToDoItemView.swift */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -222,6 +225,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DBF3ABCE2B7CB908001ABADF /* DateViewController.swift in Sources */,
+				DBF3ABD42B7D0F54001ABADF /* ToDoItemView.swift in Sources */,
 				DB21992E2B7C98FE009B2AAC /* BaseViewController.swift in Sources */,
 				DB2199182B7C977C009B2AAC /* ToDoViewController.swift in Sources */,
 				DB2199142B7C977C009B2AAC /* AppDelegate.swift in Sources */,
