@@ -17,6 +17,10 @@
 		DB2199312B7C997D009B2AAC /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = DB2199302B7C997D009B2AAC /* SnapKit */; };
 		DB2199342B7C9989009B2AAC /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = DB2199332B7C9989009B2AAC /* Then */; };
 		DB2199362B7C99A2009B2AAC /* ToDoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2199352B7C99A2009B2AAC /* ToDoView.swift */; };
+		DBF3ABC62B7CA48C001ABADF /* NewToDoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF3ABC52B7CA48C001ABADF /* NewToDoViewController.swift */; };
+		DBF3ABC82B7CA4AA001ABADF /* NewToDoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF3ABC72B7CA4AA001ABADF /* NewToDoView.swift */; };
+		DBF3ABCC2B7CB017001ABADF /* ItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF3ABCB2B7CB017001ABADF /* ItemView.swift */; };
+		DBF3ABCE2B7CB908001ABADF /* DateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF3ABCD2B7CB908001ABADF /* DateViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +34,10 @@
 		DB21992B2B7C988D009B2AAC /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		DB21992D2B7C98FE009B2AAC /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		DB2199352B7C99A2009B2AAC /* ToDoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoView.swift; sourceTree = "<group>"; };
+		DBF3ABC52B7CA48C001ABADF /* NewToDoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewToDoViewController.swift; sourceTree = "<group>"; };
+		DBF3ABC72B7CA4AA001ABADF /* NewToDoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewToDoView.swift; sourceTree = "<group>"; };
+		DBF3ABCB2B7CB017001ABADF /* ItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemView.swift; sourceTree = "<group>"; };
+		DBF3ABCD2B7CB908001ABADF /* DateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +72,7 @@
 		DB2199122B7C977C009B2AAC /* TODO-Project */ = {
 			isa = PBXGroup;
 			children = (
+				DBF3ABC92B7CAFB6001ABADF /* Resource */,
 				DB21992A2B7C985F009B2AAC /* Base */,
 				DB2199292B7C9833009B2AAC /* Model */,
 				DB2199282B7C982B009B2AAC /* Controller */,
@@ -81,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				DB2199352B7C99A2009B2AAC /* ToDoView.swift */,
+				DBF3ABC72B7CA4AA001ABADF /* NewToDoView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -89,6 +99,8 @@
 			isa = PBXGroup;
 			children = (
 				DB2199172B7C977C009B2AAC /* ToDoViewController.swift */,
+				DBF3ABC52B7CA48C001ABADF /* NewToDoViewController.swift */,
+				DBF3ABCD2B7CB908001ABADF /* DateViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -107,6 +119,22 @@
 				DB21992D2B7C98FE009B2AAC /* BaseViewController.swift */,
 			);
 			path = Base;
+			sourceTree = "<group>";
+		};
+		DBF3ABC92B7CAFB6001ABADF /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				DBF3ABCA2B7CAFC1001ABADF /* Custom */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		DBF3ABCA2B7CAFC1001ABADF /* Custom */ = {
+			isa = PBXGroup;
+			children = (
+				DBF3ABCB2B7CB017001ABADF /* ItemView.swift */,
+			);
+			path = Custom;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -187,12 +215,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DBF3ABCE2B7CB908001ABADF /* DateViewController.swift in Sources */,
 				DB21992E2B7C98FE009B2AAC /* BaseViewController.swift in Sources */,
 				DB2199182B7C977C009B2AAC /* ToDoViewController.swift in Sources */,
 				DB2199142B7C977C009B2AAC /* AppDelegate.swift in Sources */,
+				DBF3ABC62B7CA48C001ABADF /* NewToDoViewController.swift in Sources */,
+				DBF3ABCC2B7CB017001ABADF /* ItemView.swift in Sources */,
 				DB2199162B7C977C009B2AAC /* SceneDelegate.swift in Sources */,
 				DB2199362B7C99A2009B2AAC /* ToDoView.swift in Sources */,
 				DB21992C2B7C988D009B2AAC /* BaseView.swift in Sources */,
+				DBF3ABC82B7CA4AA001ABADF /* NewToDoView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

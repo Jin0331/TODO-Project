@@ -39,8 +39,13 @@ class ToDoViewController: BaseViewController {
     
     @objc func leftToolbarItemClicked(_ sender : UIButton) {
         print(#function)
+        
+        let vc = NewToDoViewController()
+        
+        present(vc, animated: true)
     }
     
+    //MARK: - 목록추가는 나중에 구현하는 듯???
     @objc func rightToolbarItemClicked(_ sender : UIButton) {
         print(#function)
     }
