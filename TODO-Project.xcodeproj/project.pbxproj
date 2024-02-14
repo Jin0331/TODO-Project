@@ -21,6 +21,8 @@
 		DBF3ABC82B7CA4AA001ABADF /* NewToDoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF3ABC72B7CA4AA001ABADF /* NewToDoView.swift */; };
 		DBF3ABCC2B7CB017001ABADF /* ItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF3ABCB2B7CB017001ABADF /* ItemView.swift */; };
 		DBF3ABCE2B7CB908001ABADF /* DateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF3ABCD2B7CB908001ABADF /* DateViewController.swift */; };
+		DBF3ABD02B7CFDCC001ABADF /* TagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF3ABCF2B7CFDCC001ABADF /* TagViewController.swift */; };
+		DBF3ABD22B7D02B2001ABADF /* PriorityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF3ABD12B7D02B2001ABADF /* PriorityViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +40,8 @@
 		DBF3ABC72B7CA4AA001ABADF /* NewToDoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewToDoView.swift; sourceTree = "<group>"; };
 		DBF3ABCB2B7CB017001ABADF /* ItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemView.swift; sourceTree = "<group>"; };
 		DBF3ABCD2B7CB908001ABADF /* DateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateViewController.swift; sourceTree = "<group>"; };
+		DBF3ABCF2B7CFDCC001ABADF /* TagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagViewController.swift; sourceTree = "<group>"; };
+		DBF3ABD12B7D02B2001ABADF /* PriorityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +105,8 @@
 				DB2199172B7C977C009B2AAC /* ToDoViewController.swift */,
 				DBF3ABC52B7CA48C001ABADF /* NewToDoViewController.swift */,
 				DBF3ABCD2B7CB908001ABADF /* DateViewController.swift */,
+				DBF3ABCF2B7CFDCC001ABADF /* TagViewController.swift */,
+				DBF3ABD12B7D02B2001ABADF /* PriorityViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -221,7 +227,9 @@
 				DB2199142B7C977C009B2AAC /* AppDelegate.swift in Sources */,
 				DBF3ABC62B7CA48C001ABADF /* NewToDoViewController.swift in Sources */,
 				DBF3ABCC2B7CB017001ABADF /* ItemView.swift in Sources */,
+				DBF3ABD02B7CFDCC001ABADF /* TagViewController.swift in Sources */,
 				DB2199162B7C977C009B2AAC /* SceneDelegate.swift in Sources */,
+				DBF3ABD22B7D02B2001ABADF /* PriorityViewController.swift in Sources */,
 				DB2199362B7C99A2009B2AAC /* ToDoView.swift in Sources */,
 				DB21992C2B7C988D009B2AAC /* BaseView.swift in Sources */,
 				DBF3ABC82B7CA4AA001ABADF /* NewToDoView.swift in Sources */,

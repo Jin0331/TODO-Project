@@ -11,22 +11,50 @@ import Then
 
 class DateViewController: BaseViewController {
     
-    let datePicker = UIDatePicker()
+    var datePickerSpace : ((String) -> Void)?
+
+    let datePicker = UIDatePicker().then {
+        $0.setValue(UIColor.white, forKeyPath: "textColor")
+        $0.preferredDatePickerStyle = .wheels
+        $0.datePickerMode = .date
+        $0.locale = Locale(identifier: "ko_KR")
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        datePicker.addTarget(self, action: #selector(dateChange), for: .valueChanged)
 
     }
     
     override func configureHierarchy() {
         view.addSubview(datePicker)
+        
     }
-    
+  
     override func configureLayout() {
         datePicker.snp.makeConstraints { make in
             make.center.equalToSuperview()
-            make.size.equalTo(100)
+            make.size.equalTo(300)
         }
     }
+    
+    //TODO: - DatePicker 글씨색 변경 필요
+    override func configureView() {
+        view.backgroundColor = .white
+    }
+    
+    @objc func dateChange(_ sender: UIDatePicker) {
+        datePickerSpace?(dateFormat(date: sender.date))
+    }
+    
+    private func dateFormat(date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy/MM/dd"
+        
+        return formatter.string(from: date)
+    }
+
 
 }

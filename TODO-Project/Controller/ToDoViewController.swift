@@ -40,7 +40,7 @@ class ToDoViewController: BaseViewController {
     @objc func leftToolbarItemClicked(_ sender : UIButton) {
         print(#function)
         
-        let vc = NewToDoViewController()
+        let vc = UINavigationController(rootViewController: NewToDoViewController())
         
         present(vc, animated: true)
     }
