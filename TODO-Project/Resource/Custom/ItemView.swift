@@ -42,7 +42,7 @@ class ItemView : BaseView {
         subLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.trailing.equalTo(rightButton.snp.leading)
-            make.width.equalTo(100)
+            make.width.equalTo(150)
         }
         
         rightButton.snp.makeConstraints { make in

@@ -18,6 +18,7 @@ class TagViewController: BaseViewController {
                                                       attributes: [NSAttributedString.Key.foregroundColor : UIColor.systemGray2,
                                                                    NSAttributedString.Key.font: UIFont(name: "Georgia", size: 16)!])
         $0.backgroundColor = .clear
+        $0.textColor = .white
     }
     
     override func viewDidLoad() {

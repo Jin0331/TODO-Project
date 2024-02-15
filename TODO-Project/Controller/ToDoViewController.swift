@@ -8,7 +8,7 @@
 import UIKit
 
 class ToDoViewController: BaseViewController {
-
+    
     let mainView = ToDoView()
     
     override func loadView() {
@@ -17,10 +17,16 @@ class ToDoViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         
+        mainView.leftSubView.forEach {
+            return $0.transitionButton.addTarget(self, action: #selector(transitionButtonClicked), for: .touchUpInside)
+        }
+        
+        mainView.rightSubView.forEach {
+            return $0.transitionButton.addTarget(self, action: #selector(transitionButtonClicked), for: .touchUpInside)
+        }
     }
-
+    
     override func configureNavigation() {
         super.configureNavigation()
         
@@ -36,7 +42,7 @@ class ToDoViewController: BaseViewController {
         items.append(leftToolbarItem)
         items.append(flexibleSpace)
         items.append(rightToolbarItem)
-
+        
         toolbarItems = items
     }
     
@@ -48,12 +54,39 @@ class ToDoViewController: BaseViewController {
         present(vc, animated: true)
     }
     
+    @objc func transitionButtonClicked(_ sender : UIButton) {
+        
+//        print(#function, sender.superview?.layer.name)
+        
+        guard let superViewName = sender.superview?.layer.name else { return }
+        guard let eCaseRawValue = sender.layer.name else { return }
+        
+        if superViewName == "left" {
+            switch ToDoViewEnum.leftStack(rawValue: eCaseRawValue) {
+            case .all :
+                print("hihi - all 전체") //TODO: - Navigation transition
+                
+                let vc = ToDoListViewController()
+                vc.navigationTitle = "전체"
+                
+                navigationController?.pushViewController(vc, animated: true)
+                
+            default :
+                print("아직 구현 아니야~!")
+            }
+            
+        }
+        
+        
+    }
+    
+    
     //MARK: - 목록추가는 나중에 구현하는 듯???
     @objc func rightToolbarItemClicked(_ sender : UIButton) {
         print(#function)
     }
-
     
-
+    
+    
 }
 

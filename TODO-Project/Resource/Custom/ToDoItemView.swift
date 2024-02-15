@@ -28,8 +28,14 @@ class ToDoItemView: BaseView {
         $0.font = .systemFont(ofSize: 35, weight: .heavy)
     }
     
+    let transitionButton = UIButton().then {
+        $0.setTitle("", for: .normal)
+        $0.backgroundColor = .clear
+        $0.tintColor = .clear
+    }
+    
     override func configureHierarchy() {
-        [titleImageView, titleLabel, countLabel].forEach { return addSubview($0)}
+        [titleImageView, titleLabel, countLabel, transitionButton].forEach { return addSubview($0)}
     }
     
     override func configureLayout() {
@@ -45,6 +51,10 @@ class ToDoItemView: BaseView {
         
         countLabel.snp.makeConstraints { make in
             make.top.trailing.equalTo(safeAreaLayoutGuide).inset(10)
+        }
+        
+        transitionButton.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
     }
     

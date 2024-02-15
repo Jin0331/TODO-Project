@@ -11,7 +11,7 @@ import Then
 
 class DateViewController: BaseViewController {
     
-    var datePickerSpace : ((String) -> Void)?
+    var datePickerSpace : ((Date) -> Void)?
 
     let datePicker = UIDatePicker().then {
         $0.preferredDatePickerStyle = .wheels
@@ -46,12 +46,12 @@ class DateViewController: BaseViewController {
     }
     
     @objc func dateChange(_ sender: UIDatePicker) {
-        datePickerSpace?(dateFormat(date: sender.date))
+        datePickerSpace?(sender.date)
     }
     
     private func dateFormat(date: Date) -> String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy/MM/dd"
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
         
         return formatter.string(from: date)
     }

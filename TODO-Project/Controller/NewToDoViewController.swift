@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RealmSwift
+
 
 class NewToDoViewController: BaseViewController {
 
@@ -19,59 +21,101 @@ class NewToDoViewController: BaseViewController {
         super.viewDidLoad()
         
         mainView.subItemView.forEach {
-            return $0.rightButton.addTarget(self, action: #selector(rightButtonClicked), for: .touchUpInside)
+            return $0.rightButton.addTarget(self, action: #selector(itemRightButtonClicked), for: .touchUpInside)
         }
-
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // 화면이 전환될때마다 save button에 대한 enable 판단 ---> 이 function으로 Realm에서 예외처리가 될 듯.  save button을 막아버림
+        saveButtonEnable()
+        
+    }
+    
     
     override func configureNavigation() {
         super.configureNavigation()
         navigationItem.title = "새로운 할 일"
         
         // left button
-        let leftButtonItem = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(leftButtonItemClicked)) // title 부분 수정
-        navigationItem.leftBarButtonItem = leftButtonItem
+        let cancelButton = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(cancleButtonItemClicked)) // title 부분 수정
+        let saveButton = UIBarButtonItem(title: "추가", style: .done, target: self, action: #selector(saveButton)) // title 부분 수정
         
-        let rightButtonItem = UIBarButtonItem(title: "추가", style: .done, target: self, action: nil) // title 부분 수정
-        navigationItem.rightBarButtonItem = rightButtonItem
+        saveButton.isEnabled = false
+        navigationItem.leftBarButtonItem = cancelButton
+        navigationItem.rightBarButtonItem = saveButton
     }
     
     
-    @objc func rightButtonClicked(_ sender : UIButton) {
+    @objc func cancleButtonItemClicked(_ sender : UIButton) {
+        dismiss(animated: true)
+    }
+    
+    @objc func saveButton(_ sender : UIButton) {
+        
+        let realm = try! Realm()
+        let task = ToDoTable(title: mainView.titleTextField.text!,
+                             memo: mainView.memoTextView.text,
+                             endDate: mainView.subItemView[NewToDoViewEnum.endTime.index].subLabel.text!.toDate(dateFormat: "yy.M.d H시 m분")!,
+                             tag: mainView.subItemView[NewToDoViewEnum.tag.index].subLabel.text!,
+                             priority: mainView.subItemView[NewToDoViewEnum.priority.index].subLabel.text!
+        )
+        
+//        print(realm.configuration.fileURL)
+        
+        try! realm.write {
+            realm.add(task)
+            print("Realm Add Succeed")
+        }
+        
+        dismiss(animated: true)
+        
+    }
+    
+    // subView objc func
+    @objc func itemRightButtonClicked(_ sender : UIButton) {
         
         print(#function)
-        print(sender.tag)
+        let eCase = NewToDoViewEnum(rawValue: sender.tag) // tag의 값이 불명확하므로, eCase는 option value가 됨
+        guard let eCase = eCase else { return }
         
-        switch sender.tag {
-        case 0 :
+        switch eCase {
+        case .endTime :
             let vc = DateViewController()
             vc.datePickerSpace = { value in
-                self.mainView.subItemView[sender.tag].subLabel.text = value
+                self.mainView.subItemView[eCase.index].subLabel.text = value.toString(dateFormat: "yy.M.d H시 m분")
             }
             navigationController?.pushViewController(vc, animated: true)
-        case 1 :
+        case .tag :
             let vc = TagViewController()
             vc.tagTextFieldSpace = { value in
-                self.mainView.subItemView[sender.tag].subLabel.text = value
-                print(value)
+                self.mainView.subItemView[eCase.index].subLabel.text = value
             }
             navigationController?.pushViewController(vc, animated: true)
-        case 2 :
+        case .priority :
             let vc = PriorityViewController()
             vc.prioritySegmentSpace = { value in
-                self.mainView.subItemView[sender.tag].subLabel.text = "\(value)"
-                print(value)
+                self.mainView.subItemView[eCase.index].subLabel.text = "\(value)"
             }
             navigationController?.pushViewController(vc, animated: true)
         default :
-            let vc = DateViewController()
-            navigationController?.pushViewController(vc, animated: true)
-
+            print("아직 구현 안 됨")
         }
     }
     
-    @objc func leftButtonItemClicked(_ sender : UIButton) {
-        dismiss(animated: true)
+    private func saveButtonEnable() {
+        if let title = mainView.titleTextField.text,
+           let _ = mainView.subItemView[NewToDoViewEnum.endTime.index].subLabel.text,
+           let _ = mainView.subItemView[NewToDoViewEnum.tag.index].subLabel.text,
+           let _ = mainView.subItemView[NewToDoViewEnum.priority.index].subLabel.text {
+            
+            if title.count > 0 {
+                navigationItem.rightBarButtonItem?.isEnabled = true
+            }
+        } else {
+            navigationItem.rightBarButtonItem?.isEnabled = false
+        }
     }
-
+    
 }
