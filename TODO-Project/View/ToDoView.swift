@@ -11,7 +11,7 @@ import SnapKit
 
 enum ToDoViewEnum {
     
-    enum leftStack : CaseIterable {
+    enum leftStack : String,  CaseIterable {
         case today
         case all
         case completed
@@ -51,7 +51,7 @@ enum ToDoViewEnum {
         
     }
     
-    enum rightStack : CaseIterable {
+    enum rightStack : String, CaseIterable {
         case plan
         case flag
         
@@ -104,7 +104,13 @@ class ToDoView: BaseView {
         $0.spacing = 10
     }
     
-    let leftSubView = (0..<ToDoViewEnum.leftStack.allCases.count).map { _ in return ToDoItemView()}
+    let leftSubView = ToDoViewEnum.leftStack.allCases.map { eCase in
+        let v = ToDoItemView()
+        v.transitionButton.layer.name = eCase.rawValue
+        v.layer.name = "left"
+        
+        return v
+    }
     
     let rightStackView = UIStackView().then {
         $0.distribution = .fillEqually
@@ -112,7 +118,13 @@ class ToDoView: BaseView {
         $0.spacing = 10
     }
     
-    let rightSubView = (0..<ToDoViewEnum.rightStack.allCases.count).map { _ in return ToDoItemView()}
+    let rightSubView = ToDoViewEnum.rightStack.allCases.map { eCase in
+        let v = ToDoItemView()
+        v.layer.name = "right"
+        v.transitionButton.layer.name = eCase.rawValue
+        
+        return v
+    }
     
     override func configureHierarchy() {
         

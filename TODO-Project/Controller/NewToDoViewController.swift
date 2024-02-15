@@ -43,7 +43,6 @@ class NewToDoViewController: BaseViewController {
         let saveButton = UIBarButtonItem(title: "추가", style: .done, target: self, action: #selector(saveButton)) // title 부분 수정
         
         saveButton.isEnabled = false
-        
         navigationItem.leftBarButtonItem = cancelButton
         navigationItem.rightBarButtonItem = saveButton
     }
@@ -58,19 +57,19 @@ class NewToDoViewController: BaseViewController {
         let realm = try! Realm()
         let task = ToDoTable(title: mainView.titleTextField.text!,
                              memo: mainView.memoTextView.text,
-                             endDate: mainView.subItemView[NewToDoViewEnum.endTime.index].subLabel.text!.toDate()!,
+                             endDate: mainView.subItemView[NewToDoViewEnum.endTime.index].subLabel.text!.toDate(dateFormat: "yy.M.d H시 m분")!,
                              tag: mainView.subItemView[NewToDoViewEnum.tag.index].subLabel.text!,
                              priority: mainView.subItemView[NewToDoViewEnum.priority.index].subLabel.text!
         )
         
-        print(realm.configuration.fileURL)
+//        print(realm.configuration.fileURL)
         
         try! realm.write {
             realm.add(task)
             print("Realm Add Succeed")
         }
         
-        navigationController?.popViewController(animated: true)
+        dismiss(animated: true)
         
     }
     
@@ -85,7 +84,7 @@ class NewToDoViewController: BaseViewController {
         case .endTime :
             let vc = DateViewController()
             vc.datePickerSpace = { value in
-                self.mainView.subItemView[eCase.index].subLabel.text = value
+                self.mainView.subItemView[eCase.index].subLabel.text = value.toString(dateFormat: "yy.M.d H시 m분")
             }
             navigationController?.pushViewController(vc, animated: true)
         case .tag :

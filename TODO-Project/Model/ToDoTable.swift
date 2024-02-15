@@ -25,4 +25,10 @@ class ToDoTable : Object {
         self.tag = tag
         self.priority = priority
     }
+    
+    var endDateFormatting : String {
+        get {
+            return endDate.toString(dateFormat: "yy.M.d HH시 mm분")
+        }
+    }
 }

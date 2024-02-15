@@ -20,8 +20,11 @@
 		DB7C10922B7E368C0001B149 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = DB7C10912B7E368C0001B149 /* Realm */; };
 		DB7C10942B7E368C0001B149 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DB7C10932B7E368C0001B149 /* RealmSwift */; };
 		DB7C10962B7E36C70001B149 /* ToDoTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7C10952B7E36C70001B149 /* ToDoTable.swift */; };
-		DB7C10992B7E421E0001B149 /* Common + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7C10982B7E421E0001B149 /* Common + Extension.swift */; };
+		DB7C10992B7E421E0001B149 /* Date + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7C10982B7E421E0001B149 /* Date + Extension.swift */; };
 		DB7C109C2B7E50AB0001B149 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DB7C109B2B7E50AB0001B149 /* IQKeyboardManagerSwift */; };
+		DB7C109E2B7E5C740001B149 /* ToDoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7C109D2B7E5C740001B149 /* ToDoListViewController.swift */; };
+		DB7C10A32B7E64030001B149 /* BaseTableSystemViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7C10A22B7E64030001B149 /* BaseTableSystemViewCell.swift */; };
+		DB7C10A52B7E75350001B149 /* BlockBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7C10A42B7E75350001B149 /* BlockBarButtonItem.swift */; };
 		DBF3ABC62B7CA48C001ABADF /* NewToDoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF3ABC52B7CA48C001ABADF /* NewToDoViewController.swift */; };
 		DBF3ABC82B7CA4AA001ABADF /* NewToDoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF3ABC72B7CA4AA001ABADF /* NewToDoView.swift */; };
 		DBF3ABCC2B7CB017001ABADF /* ItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF3ABCB2B7CB017001ABADF /* ItemView.swift */; };
@@ -43,7 +46,10 @@
 		DB21992D2B7C98FE009B2AAC /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		DB2199352B7C99A2009B2AAC /* ToDoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoView.swift; sourceTree = "<group>"; };
 		DB7C10952B7E36C70001B149 /* ToDoTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoTable.swift; sourceTree = "<group>"; };
-		DB7C10982B7E421E0001B149 /* Common + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Common + Extension.swift"; sourceTree = "<group>"; };
+		DB7C10982B7E421E0001B149 /* Date + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date + Extension.swift"; sourceTree = "<group>"; };
+		DB7C109D2B7E5C740001B149 /* ToDoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListViewController.swift; sourceTree = "<group>"; };
+		DB7C10A22B7E64030001B149 /* BaseTableSystemViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableSystemViewCell.swift; sourceTree = "<group>"; };
+		DB7C10A42B7E75350001B149 /* BlockBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockBarButtonItem.swift; sourceTree = "<group>"; };
 		DBF3ABC52B7CA48C001ABADF /* NewToDoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewToDoViewController.swift; sourceTree = "<group>"; };
 		DBF3ABC72B7CA4AA001ABADF /* NewToDoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewToDoView.swift; sourceTree = "<group>"; };
 		DBF3ABCB2B7CB017001ABADF /* ItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemView.swift; sourceTree = "<group>"; };
@@ -114,11 +120,10 @@
 		DB2199282B7C982B009B2AAC /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				DB7C109F2B7E5C860001B149 /* Sender */,
 				DB2199172B7C977C009B2AAC /* ToDoViewController.swift */,
 				DBF3ABC52B7CA48C001ABADF /* NewToDoViewController.swift */,
-				DBF3ABCD2B7CB908001ABADF /* DateViewController.swift */,
-				DBF3ABCF2B7CFDCC001ABADF /* TagViewController.swift */,
-				DBF3ABD12B7D02B2001ABADF /* PriorityViewController.swift */,
+				DB7C109D2B7E5C740001B149 /* ToDoListViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -136,6 +141,7 @@
 			children = (
 				DB21992B2B7C988D009B2AAC /* BaseView.swift */,
 				DB21992D2B7C98FE009B2AAC /* BaseViewController.swift */,
+				DB7C10A22B7E64030001B149 /* BaseTableSystemViewCell.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -143,9 +149,19 @@
 		DB7C10972B7E42080001B149 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				DB7C10982B7E421E0001B149 /* Common + Extension.swift */,
+				DB7C10982B7E421E0001B149 /* Date + Extension.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		DB7C109F2B7E5C860001B149 /* Sender */ = {
+			isa = PBXGroup;
+			children = (
+				DBF3ABCD2B7CB908001ABADF /* DateViewController.swift */,
+				DBF3ABCF2B7CFDCC001ABADF /* TagViewController.swift */,
+				DBF3ABD12B7D02B2001ABADF /* PriorityViewController.swift */,
+			);
+			path = Sender;
 			sourceTree = "<group>";
 		};
 		DBF3ABC92B7CAFB6001ABADF /* Resource */ = {
@@ -162,6 +178,7 @@
 			children = (
 				DBF3ABCB2B7CB017001ABADF /* ItemView.swift */,
 				DBF3ABD32B7D0F54001ABADF /* ToDoItemView.swift */,
+				DB7C10A42B7E75350001B149 /* BlockBarButtonItem.swift */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -249,17 +266,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB7C10A52B7E75350001B149 /* BlockBarButtonItem.swift in Sources */,
 				DBF3ABCE2B7CB908001ABADF /* DateViewController.swift in Sources */,
-				DB7C10992B7E421E0001B149 /* Common + Extension.swift in Sources */,
+				DB7C10992B7E421E0001B149 /* Date + Extension.swift in Sources */,
 				DBF3ABD42B7D0F54001ABADF /* ToDoItemView.swift in Sources */,
 				DB21992E2B7C98FE009B2AAC /* BaseViewController.swift in Sources */,
 				DB2199182B7C977C009B2AAC /* ToDoViewController.swift in Sources */,
 				DB2199142B7C977C009B2AAC /* AppDelegate.swift in Sources */,
 				DBF3ABC62B7CA48C001ABADF /* NewToDoViewController.swift in Sources */,
 				DB7C10962B7E36C70001B149 /* ToDoTable.swift in Sources */,
+				DB7C109E2B7E5C740001B149 /* ToDoListViewController.swift in Sources */,
 				DBF3ABCC2B7CB017001ABADF /* ItemView.swift in Sources */,
 				DBF3ABD02B7CFDCC001ABADF /* TagViewController.swift in Sources */,
 				DB2199162B7C977C009B2AAC /* SceneDelegate.swift in Sources */,
+				DB7C10A32B7E64030001B149 /* BaseTableSystemViewCell.swift in Sources */,
 				DBF3ABD22B7D02B2001ABADF /* PriorityViewController.swift in Sources */,
 				DB2199362B7C99A2009B2AAC /* ToDoView.swift in Sources */,
 				DB21992C2B7C988D009B2AAC /* BaseView.swift in Sources */,
