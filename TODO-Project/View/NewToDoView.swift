@@ -11,6 +11,26 @@ import Then
 
 //TODO: - Navigation controller 추가, cancle / 추가 버튼(항목이 채워져야 활성화되도록)
 
+enum NewToDoViewEnum : CaseIterable {
+    case endTime
+    case tag
+    case priority
+    case addImage
+    
+    var title : String{
+        switch self {
+        case .endTime:
+            return "마감일"
+        case .tag:
+            return "태그"
+        case .priority:
+            return "우선 순위"
+        case .addImage:
+            return "이미지 추가"
+        }
+    }
+}
+
 class NewToDoView : BaseView {
     
     let topView = UIView().then {
@@ -26,7 +46,6 @@ class NewToDoView : BaseView {
         $0.backgroundColor = .clear
     }
     
-    
     let memoTextView = UITextView().then {
         $0.text = "메모"
         $0.font = .systemFont(ofSize: 16)
@@ -40,7 +59,7 @@ class NewToDoView : BaseView {
         $0.distribution = .fillEqually
     }
     
-    let subItemView = (0..<4).map { index in
+    let subItemView = (0..<NewToDoViewEnum.allCases.count).map { index in
         
         let subView = ItemView()
         subView.rightButton.tag = index
@@ -48,9 +67,6 @@ class NewToDoView : BaseView {
         return subView
     }
     
-//    let testView = ItemView().then {
-//        $0.textLabel.text = "마감일"
-//    }
     override func configureHierarchy() {
         addSubview(topView)
         [titleTextField, memoTextView].forEach { return addSubview($0)}
@@ -82,22 +98,13 @@ class NewToDoView : BaseView {
             make.horizontalEdges.equalTo(topView)
             make.height.equalTo(270)
         }
-        
-//        testView.snp.makeConstraints { make in
-//            make.top.equalTo(topView.snp.bottom).offset(20)
-//            make.horizontalEdges.equalTo(topView)
-//            make.height.equalTo(60)
-//        }
-        
     }
     
     override func configureView() {
         super.configureView()
 
-        let titleArray : [String] = ["마감일", "태그", "우선 순위", "이미지 추가"]
-        
-        for (index, value) in titleArray.enumerated() {
-            subItemView[index].setTitle(value: value)
+        subItemView.enumerated().forEach { k, v in
+            v.setTitle(value: NewToDoViewEnum.allCases[k].title)
         }
     }
     
