@@ -21,6 +21,7 @@
 		DB7C10942B7E368C0001B149 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DB7C10932B7E368C0001B149 /* RealmSwift */; };
 		DB7C10962B7E36C70001B149 /* ToDoTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7C10952B7E36C70001B149 /* ToDoTable.swift */; };
 		DB7C10992B7E421E0001B149 /* Common + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7C10982B7E421E0001B149 /* Common + Extension.swift */; };
+		DB7C109C2B7E50AB0001B149 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DB7C109B2B7E50AB0001B149 /* IQKeyboardManagerSwift */; };
 		DBF3ABC62B7CA48C001ABADF /* NewToDoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF3ABC52B7CA48C001ABADF /* NewToDoViewController.swift */; };
 		DBF3ABC82B7CA4AA001ABADF /* NewToDoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF3ABC72B7CA4AA001ABADF /* NewToDoView.swift */; };
 		DBF3ABCC2B7CB017001ABADF /* ItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF3ABCB2B7CB017001ABADF /* ItemView.swift */; };
@@ -57,6 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB7C109C2B7E50AB0001B149 /* IQKeyboardManagerSwift in Frameworks */,
 				DB7C10942B7E368C0001B149 /* RealmSwift in Frameworks */,
 				DB7C10922B7E368C0001B149 /* Realm in Frameworks */,
 				DB2199312B7C997D009B2AAC /* SnapKit in Frameworks */,
@@ -185,6 +187,7 @@
 				DB2199332B7C9989009B2AAC /* Then */,
 				DB7C10912B7E368C0001B149 /* Realm */,
 				DB7C10932B7E368C0001B149 /* RealmSwift */,
+				DB7C109B2B7E50AB0001B149 /* IQKeyboardManagerSwift */,
 			);
 			productName = "TODO-Project";
 			productReference = DB2199102B7C977C009B2AAC /* TODO-Project.app */;
@@ -218,6 +221,7 @@
 				DB21992F2B7C997D009B2AAC /* XCRemoteSwiftPackageReference "SnapKit" */,
 				DB2199322B7C9989009B2AAC /* XCRemoteSwiftPackageReference "Then" */,
 				DB7C10902B7E368C0001B149 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				DB7C109A2B7E50AB0001B149 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 			);
 			productRefGroup = DB2199112B7C977C009B2AAC /* Products */;
 			projectDirPath = "";
@@ -508,6 +512,14 @@
 				version = 10.47.0;
 			};
 		};
+		DB7C109A2B7E50AB0001B149 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -530,6 +542,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DB7C10902B7E368C0001B149 /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;
+		};
+		DB7C109B2B7E50AB0001B149 /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB7C109A2B7E50AB0001B149 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

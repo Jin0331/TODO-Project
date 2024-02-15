@@ -51,6 +51,7 @@ class NewToDoView : BaseView {
                                                       attributes: [NSAttributedString.Key.foregroundColor : UIColor.systemGray2,
                                                                    NSAttributedString.Key.font: UIFont(name: "Georgia", size: 16)!])
         $0.backgroundColor = .clear
+        $0.textColor =  .systemGray2
     }
     
     let memoTextView = UITextView().then {

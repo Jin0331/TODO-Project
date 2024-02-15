@@ -70,6 +70,8 @@ class NewToDoViewController: BaseViewController {
             print("Realm Add Succeed")
         }
         
+        navigationController?.popViewController(animated: true)
+        
     }
     
     // subView objc func
