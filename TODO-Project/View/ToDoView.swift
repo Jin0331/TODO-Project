@@ -136,8 +136,6 @@ class ToDoView: BaseView {
             make.horizontalEdges.equalTo(titleLabel)
             make.height.equalTo(300)
         }
-        
-        
     }
     
     override func configureView() {

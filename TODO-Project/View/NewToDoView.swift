@@ -11,7 +11,7 @@ import Then
 
 //TODO: - Navigation controller 추가, cancle / 추가 버튼(항목이 채워져야 활성화되도록)
 
-enum NewToDoViewEnum : CaseIterable {
+enum NewToDoViewEnum : Int, CaseIterable {
     case endTime
     case tag
     case priority
@@ -27,6 +27,13 @@ enum NewToDoViewEnum : CaseIterable {
             return "우선 순위"
         case .addImage:
             return "이미지 추가"
+        }
+    }
+    
+    var index : Int {
+        switch self {
+        default :
+            return self.rawValue
         }
     }
 }
@@ -107,5 +114,7 @@ class NewToDoView : BaseView {
             v.setTitle(value: NewToDoViewEnum.allCases[k].title)
         }
     }
+    
+    
     
 }
