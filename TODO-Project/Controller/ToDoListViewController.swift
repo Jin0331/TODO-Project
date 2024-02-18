@@ -21,7 +21,7 @@ class ToDoListViewController: BaseViewController {
         }
     }
     
-    let mainTableView = UITableView(frame: .zero, style: .insetGrouped).then {
+    let mainTableView = UITableView(frame: .zero).then {
         $0.backgroundColor = .clear
     }
     
@@ -39,8 +39,6 @@ class ToDoListViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        dataList = repository.fetch()
 
     }
     
@@ -56,10 +54,10 @@ class ToDoListViewController: BaseViewController {
     
     override func configureView() {
         super.configureView()
-        mainTableView.rowHeight = 70
+        mainTableView.rowHeight = 100
         mainTableView.delegate = self
         mainTableView.dataSource = self
-        mainTableView.register(BaseTableViewCell.self, forCellReuseIdentifier: "mainCell")
+        mainTableView.register(NewToDoListTableViewCell.self, forCellReuseIdentifier: NewToDoListTableViewCell.identifier)
     }
     
     override func configureNavigation() {
@@ -83,23 +81,25 @@ extension ToDoListViewController : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "mainCell")!
+        let cell = tableView.dequeueReusableCell(withIdentifier: NewToDoListTableViewCell.identifier, for: indexPath) as! NewToDoListTableViewCell
         
-        let row = dataList[indexPath.row]
-        var subTitle : String
+        cell.receiveData(data: dataList[indexPath.row])
+        cell.completeButton.addTarget(self, action: #selector(completeButtonClicked), for: .touchUpInside)
         
-        cell.textLabel?.text = row.title
-        
-        if let memo = row.memo {
-            subTitle = [memo, "\(row.endDateFormatting)", row.tag].joined(separator: " | ")
-            cell.detailTextLabel?.text = subTitle
-        } else {
-            subTitle = ["\(row.endDateFormatting)", row.tag].joined(separator: " | ")
-            cell.detailTextLabel?.text = subTitle
-        }
         
         return cell
     }
     
+
     
+    
+    @objc func completeButtonClicked(_ sender : UIButton){
+        if let cell = sender.superview?.superview as? NewToDoListTableViewCell, // superview를 이용하여
+           let indexPath = mainTableView.indexPath(for: cell){
+            
+            print(dataList[indexPath.row])
+            repository.updateComplete(dataList[indexPath.row])
+            mainTableView.reloadData()
+        }
+    }
 }

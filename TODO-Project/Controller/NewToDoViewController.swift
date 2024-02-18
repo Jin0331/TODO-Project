@@ -56,8 +56,8 @@ class NewToDoViewController: BaseViewController {
         
         let item = ToDoTable(title: mainView.titleTextField.text!,
                              memo: mainView.memoTextView.text,
-                             endDate: mainView.subItemView[NewToDoViewEnum.endTime.index].subLabel.text!.toDate(dateFormat: "yy.MM.dd")!,
-                             tag: mainView.subItemView[NewToDoViewEnum.tag.index].subLabel.text!,
+                             endDate: mainView.subItemView[NewToDoViewEnum.endTime.index].subLabel.text?.toDate(dateFormat: "yy.MM.dd"),
+                             tag: mainView.subItemView[NewToDoViewEnum.tag.index].subLabel.text,
                              priority: mainView.subItemView[NewToDoViewEnum.priority.index].subLabel.text!,
                              flag : false,
                              completed: false
@@ -102,8 +102,6 @@ class NewToDoViewController: BaseViewController {
     
     private func saveButtonEnable() {
         if let title = mainView.titleTextField.text,
-           let _ = mainView.subItemView[NewToDoViewEnum.endTime.index].subLabel.text,
-           let _ = mainView.subItemView[NewToDoViewEnum.tag.index].subLabel.text,
            let _ = mainView.subItemView[NewToDoViewEnum.priority.index].subLabel.text {
             
             if title.count > 0 {

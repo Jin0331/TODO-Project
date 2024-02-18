@@ -74,7 +74,7 @@ class ToDoViewController: BaseViewController {
                 
                 let vc = ToDoListViewController()
                 vc.navigationTitle = "전체"
-                vc.dataList = repository.fetch()
+                vc.dataList = repository.fetchAll()
                 
                 navigationController?.pushViewController(vc, animated: true)
                 
@@ -101,7 +101,7 @@ class ToDoViewController: BaseViewController {
     func countUpdate() {
         //TODO: - Date filter 방법 찾아야됨.
 //        mainView.leftSubView[0].countLabel.text = String(repository.fetchNowDate().count) // 오늘
-        mainView.leftSubView[1].countLabel.text = String(repository.fetch().count) // 전체
+        mainView.leftSubView[1].countLabel.text = String(repository.fetchAll().count) // 전체
         mainView.leftSubView[2].countLabel.text = String(repository.fetchComplete().count) // 완료
     }
     

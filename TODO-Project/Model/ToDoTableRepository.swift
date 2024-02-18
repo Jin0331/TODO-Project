@@ -59,6 +59,15 @@ final class ToDoTableRepository {
         
     }
     
+    func fetchAll() -> Results<ToDoTable> {
+        
+        return realm.objects(ToDoTable.self).where {
+            $0.completed == false
+        }
+        
+    }
+
+    
     func fetchComplete() -> Results<ToDoTable> {
         
         return realm.objects(ToDoTable.self).where {
@@ -95,17 +104,17 @@ final class ToDoTableRepository {
     }
     
     
-//    //1. 한 레코드에 특정 컬럼값을 수정하고 싶은 경우
-//    func updateFavoite(_ item : ToDoTable) {
-//        
-//        do {
-//            try realm.write {
-//                item.favorite.toggle()
-//            }
-//        } catch {
-//            print(error)
-//        }
-//    }
+    //1. 한 레코드에 특정 컬럼값을 수정하고 싶은 경우
+    func updateComplete(_ item : ToDoTable) {
+        
+        do {
+            try realm.write {
+                item.completed.toggle()
+            }
+        } catch {
+            print(error)
+        }
+    }
 }
 
 
