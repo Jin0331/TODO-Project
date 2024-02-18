@@ -14,6 +14,7 @@ import RealmSwift
 class ToDoListViewController: BaseViewController {
 
     var navigationTitle : String?
+    var repository = ToDoTableRepository()
     var dataList : Results<ToDoTable>! {
         didSet {
             mainTableView.reloadData()
@@ -25,28 +26,11 @@ class ToDoListViewController: BaseViewController {
     }
     
     lazy var menuItems: [UIAction] = {
-        return [
-            UIAction(title: "제목", image: UIImage(systemName: "arrow.clockwise.square"), handler: { _ in
-                let realm = try! Realm()
-                self.dataList = realm.objects(ToDoTable.self).sorted(byKeyPath: "title", ascending: true)
-            }),
-            UIAction(title: "마감일", image: UIImage(systemName: "arrow.clockwise.square"), handler: { _ in
-                let realm = try! Realm()
-                self.dataList = realm.objects(ToDoTable.self).sorted(byKeyPath: "endDate", ascending: true)
-            }),
-            UIAction(title: "우선순위 높음", image: UIImage(systemName: "arrow.clockwise.square"), handler: { _ in
-                let realm = try! Realm()
-                self.dataList =  realm.objects(ToDoTable.self).where {
-                    $0.priority == "2"
-                }
-            }),
-            UIAction(title: "우선순위 낮음", image: UIImage(systemName: "arrow.clockwise.square"), handler: { _ in
-                let realm = try! Realm()
-                self.dataList =  realm.objects(ToDoTable.self).where {
-                    $0.priority == "0"
-                }
-            }),
-        ]
+        return
+            ToDoTableRepository.sortedKey.allCases.map { item in
+                return UIAction(title: item.title, image: UIImage(systemName: item.sortedImage), handler: { _ in
+                    self.dataList = self.repository.fetchSort(item.rawValue)})
+            }
     }()
     
     lazy var menu: UIMenu = {
@@ -56,8 +40,7 @@ class ToDoListViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let realm = try! Realm()
-        dataList = realm.objects(ToDoTable.self)
+//        dataList = repository.fetch()
 
     }
     
@@ -76,7 +59,7 @@ class ToDoListViewController: BaseViewController {
         mainTableView.rowHeight = 70
         mainTableView.delegate = self
         mainTableView.dataSource = self
-        mainTableView.register(BaseTableSystemViewCell.self, forCellReuseIdentifier: "mainCell")
+        mainTableView.register(BaseTableViewCell.self, forCellReuseIdentifier: "mainCell")
     }
     
     override func configureNavigation() {
@@ -85,8 +68,7 @@ class ToDoListViewController: BaseViewController {
         navigationItem.title = navigationTitle
 
         let refreshButton = BlockBarButtonItem(image: UIImage(systemName: "arrow.clockwise"), style: .plain) {
-            let realm = try! Realm()
-            self.dataList = realm.objects(ToDoTable.self)
+            self.dataList = self.repository.fetch()
         }
         
         let pullDownButton = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"),
@@ -109,10 +91,10 @@ extension ToDoListViewController : UITableViewDelegate, UITableViewDataSource {
         cell.textLabel?.text = row.title
         
         if let memo = row.memo {
-            subTitle = [memo, "\(row.endDateFormatting)까지", row.tag].joined(separator: " | ")
+            subTitle = [memo, "\(row.endDateFormatting)", row.tag].joined(separator: " | ")
             cell.detailTextLabel?.text = subTitle
         } else {
-            subTitle = ["\(row.endDateFormatting)까지", row.tag].joined(separator: " | ")
+            subTitle = ["\(row.endDateFormatting)", row.tag].joined(separator: " | ")
             cell.detailTextLabel?.text = subTitle
         }
         

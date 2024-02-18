@@ -15,8 +15,11 @@ class ToDoTable : Object {
     @Persisted var endDate : Date
     @Persisted var tag : String
     @Persisted var priority : String
+    @Persisted var flag : Bool
+    @Persisted var completed : Bool
     
-    convenience init(title: String, memo: String? = nil, endDate: Date, tag: String, priority: String) {
+    convenience init(title: String, memo: String? = nil, endDate: Date,
+                     tag: String, priority: String, flag : Bool, completed : Bool) {
         self.init()
         
         self.title = title
@@ -24,11 +27,19 @@ class ToDoTable : Object {
         self.endDate = endDate
         self.tag = tag
         self.priority = priority
+        self.flag = flag
+        self.completed = completed
     }
     
     var endDateFormatting : String {
         get {
-            return endDate.toString(dateFormat: "yy.M.d HH시 mm분")
+            return endDate.toString(dateFormat: "yy.M.d")
+        }
+    }
+    
+    var endDateFiltered : String {
+        get {
+            return endDate.toString(dateFormat: "yy/MM/dd")
         }
     }
 }

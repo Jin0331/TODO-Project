@@ -10,9 +10,15 @@ import UIKit
 class ToDoViewController: BaseViewController {
     
     let mainView = ToDoView()
+    let repository = ToDoTableRepository()
     
     override func loadView() {
         self.view = mainView
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        countUpdate()
     }
     
     override func viewDidLoad() {
@@ -68,9 +74,16 @@ class ToDoViewController: BaseViewController {
                 
                 let vc = ToDoListViewController()
                 vc.navigationTitle = "전체"
+                vc.dataList = repository.fetch()
                 
                 navigationController?.pushViewController(vc, animated: true)
                 
+            case .completed :
+                let vc = ToDoListViewController()
+                vc.navigationTitle = "완료"
+                vc.dataList = repository.fetchComplete()
+                
+                navigationController?.pushViewController(vc, animated: true)
             default :
                 print("아직 구현 아니야~!")
             }
@@ -80,12 +93,17 @@ class ToDoViewController: BaseViewController {
         
     }
     
-    
     //MARK: - 목록추가는 나중에 구현하는 듯???
     @objc func rightToolbarItemClicked(_ sender : UIButton) {
         print(#function)
     }
     
+    func countUpdate() {
+        //TODO: - Date filter 방법 찾아야됨.
+//        mainView.leftSubView[0].countLabel.text = String(repository.fetchNowDate().count) // 오늘
+        mainView.leftSubView[1].countLabel.text = String(repository.fetch().count) // 전체
+        mainView.leftSubView[2].countLabel.text = String(repository.fetchComplete().count) // 완료
+    }
     
     
 }

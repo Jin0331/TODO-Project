@@ -8,10 +8,10 @@
 import UIKit
 import RealmSwift
 
-
 class NewToDoViewController: BaseViewController {
 
     let mainView = NewToDoView()
+    let repository = ToDoTableRepository()
     
     override func loadView() {
         self.view = mainView
@@ -54,21 +54,17 @@ class NewToDoViewController: BaseViewController {
     
     @objc func saveButton(_ sender : UIButton) {
         
-        let realm = try! Realm()
-        let task = ToDoTable(title: mainView.titleTextField.text!,
+        let item = ToDoTable(title: mainView.titleTextField.text!,
                              memo: mainView.memoTextView.text,
-                             endDate: mainView.subItemView[NewToDoViewEnum.endTime.index].subLabel.text!.toDate(dateFormat: "yy.M.d H시 m분")!,
+                             endDate: mainView.subItemView[NewToDoViewEnum.endTime.index].subLabel.text!.toDate(dateFormat: "yy.MM.dd")!,
                              tag: mainView.subItemView[NewToDoViewEnum.tag.index].subLabel.text!,
-                             priority: mainView.subItemView[NewToDoViewEnum.priority.index].subLabel.text!
+                             priority: mainView.subItemView[NewToDoViewEnum.priority.index].subLabel.text!,
+                             flag : false,
+                             completed: false
         )
         
-//        print(realm.configuration.fileURL)
-        
-        try! realm.write {
-            realm.add(task)
-            print("Realm Add Succeed")
-        }
-        
+        repository.createItem(item)
+        repository.realmLocation()
         dismiss(animated: true)
         
     }
