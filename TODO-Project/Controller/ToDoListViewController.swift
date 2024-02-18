@@ -126,4 +126,13 @@ extension ToDoListViewController : UITableViewDelegate, UITableViewDataSource {
         return config
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let row = dataList[indexPath.row]
+        let vc = DetailToDoViewController()
+        vc.dataList = row
+        
+        present(UINavigationController(rootViewController: vc), animated: true)
+    }
+    
 }

@@ -58,7 +58,9 @@ class ToDoViewController: BaseViewController {
         
         let vc = UINavigationController(rootViewController: NewToDoViewController())
         
-        present(vc, animated: true)
+        present(vc, animated: true) {
+            self.countUpdate()
+        }
     }
     
     @objc func transitionButtonClicked(_ sender : UIButton) {

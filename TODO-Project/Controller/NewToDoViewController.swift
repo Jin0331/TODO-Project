@@ -12,7 +12,6 @@ class NewToDoViewController: BaseViewController {
 
     let mainView = NewToDoView()
     let repository = ToDoTableRepository()
-    var countUpdate : ((String) -> Void)?
     
     override func loadView() {
         self.view = mainView
@@ -50,7 +49,6 @@ class NewToDoViewController: BaseViewController {
     
     @objc func cancleButtonItemClicked(_ sender : UIButton) {
         dismiss(animated: true)
-        countUpdate?("")
     }
     
     @objc func saveButton(_ sender : UIButton) {

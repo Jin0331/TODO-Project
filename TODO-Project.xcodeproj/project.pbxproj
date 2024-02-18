@@ -28,6 +28,7 @@
 		DB7C10A92B819D470001B149 /* ToDoTableRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7C10A82B819D470001B149 /* ToDoTableRepository.swift */; };
 		DB7C10AE2B81BFAF0001B149 /* NewToDoListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7C10AD2B81BFAF0001B149 /* NewToDoListTableViewCell.swift */; };
 		DB7C10B02B81C8CB0001B149 /* UIView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7C10AF2B81C8CB0001B149 /* UIView + Extension.swift */; };
+		DB7C10B22B8232050001B149 /* DetailToDoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7C10B12B8232050001B149 /* DetailToDoViewController.swift */; };
 		DBF3ABC62B7CA48C001ABADF /* NewToDoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF3ABC52B7CA48C001ABADF /* NewToDoViewController.swift */; };
 		DBF3ABC82B7CA4AA001ABADF /* NewToDoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF3ABC72B7CA4AA001ABADF /* NewToDoView.swift */; };
 		DBF3ABCC2B7CB017001ABADF /* ItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF3ABCB2B7CB017001ABADF /* ItemView.swift */; };
@@ -56,6 +57,7 @@
 		DB7C10A82B819D470001B149 /* ToDoTableRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoTableRepository.swift; sourceTree = "<group>"; };
 		DB7C10AD2B81BFAF0001B149 /* NewToDoListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewToDoListTableViewCell.swift; sourceTree = "<group>"; };
 		DB7C10AF2B81C8CB0001B149 /* UIView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Extension.swift"; sourceTree = "<group>"; };
+		DB7C10B12B8232050001B149 /* DetailToDoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailToDoViewController.swift; sourceTree = "<group>"; };
 		DBF3ABC52B7CA48C001ABADF /* NewToDoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewToDoViewController.swift; sourceTree = "<group>"; };
 		DBF3ABC72B7CA4AA001ABADF /* NewToDoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewToDoView.swift; sourceTree = "<group>"; };
 		DBF3ABCB2B7CB017001ABADF /* ItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemView.swift; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 				DB2199172B7C977C009B2AAC /* ToDoViewController.swift */,
 				DBF3ABC52B7CA48C001ABADF /* NewToDoViewController.swift */,
 				DB7C109D2B7E5C740001B149 /* ToDoListViewController.swift */,
+				DB7C10B12B8232050001B149 /* DetailToDoViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -286,6 +289,7 @@
 				DB7C10A52B7E75350001B149 /* BlockBarButtonItem.swift in Sources */,
 				DBF3ABCE2B7CB908001ABADF /* DateViewController.swift in Sources */,
 				DB7C10992B7E421E0001B149 /* Date + Extension.swift in Sources */,
+				DB7C10B22B8232050001B149 /* DetailToDoViewController.swift in Sources */,
 				DBF3ABD42B7D0F54001ABADF /* ToDoItemView.swift in Sources */,
 				DB21992E2B7C98FE009B2AAC /* BaseViewController.swift in Sources */,
 				DB2199182B7C977C009B2AAC /* ToDoViewController.swift in Sources */,
