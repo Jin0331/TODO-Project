@@ -8,10 +8,11 @@
 import UIKit
 import RealmSwift
 
-
 class NewToDoViewController: BaseViewController {
 
     let mainView = NewToDoView()
+    let repository = ToDoTableRepository()
+    var countUpdate : (() -> Void)?
     
     override func loadView() {
         self.view = mainView
@@ -27,8 +28,7 @@ class NewToDoViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        // 화면이 전환될때마다 save button에 대한 enable 판단 ---> 이 function으로 Realm에서 예외처리가 될 듯.  save button을 막아버림
+
         saveButtonEnable()
         
     }
@@ -54,20 +54,19 @@ class NewToDoViewController: BaseViewController {
     
     @objc func saveButton(_ sender : UIButton) {
         
-        let realm = try! Realm()
-        let task = ToDoTable(title: mainView.titleTextField.text!,
+        let item = ToDoTable(title: mainView.titleTextField.text!,
                              memo: mainView.memoTextView.text,
-                             endDate: mainView.subItemView[NewToDoViewEnum.endTime.index].subLabel.text!.toDate(dateFormat: "yy.M.d H시 m분")!,
-                             tag: mainView.subItemView[NewToDoViewEnum.tag.index].subLabel.text!,
-                             priority: mainView.subItemView[NewToDoViewEnum.priority.index].subLabel.text!
+                             endDate: mainView.subItemView[NewToDoViewEnum.endTime.index].subLabel.text?.toDate(dateFormat: "yy.MM.dd") ?? nil,
+                             tag: mainView.subItemView[NewToDoViewEnum.tag.index].subLabel.text,
+                             priority: mainView.subItemView[NewToDoViewEnum.priority.index].subLabel.text!,
+                             flag : false,
+                             completed: false
         )
         
-//        print(realm.configuration.fileURL)
+        repository.createItem(item)
+        repository.realmLocation()
         
-        try! realm.write {
-            realm.add(task)
-            print("Realm Add Succeed")
-        }
+        countUpdate?() // 이전 화면 함수 호출
         
         dismiss(animated: true)
         
@@ -84,7 +83,7 @@ class NewToDoViewController: BaseViewController {
         case .endTime :
             let vc = DateViewController()
             vc.datePickerSpace = { value in
-                self.mainView.subItemView[eCase.index].subLabel.text = value.toString(dateFormat: "yy.M.d H시 m분")
+                self.mainView.subItemView[eCase.index].subLabel.text = value.toString(dateFormat: "yy.MM.dd")
             }
             navigationController?.pushViewController(vc, animated: true)
         case .tag :
@@ -106,8 +105,6 @@ class NewToDoViewController: BaseViewController {
     
     private func saveButtonEnable() {
         if let title = mainView.titleTextField.text,
-           let _ = mainView.subItemView[NewToDoViewEnum.endTime.index].subLabel.text,
-           let _ = mainView.subItemView[NewToDoViewEnum.tag.index].subLabel.text,
            let _ = mainView.subItemView[NewToDoViewEnum.priority.index].subLabel.text {
             
             if title.count > 0 {

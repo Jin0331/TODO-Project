@@ -54,11 +54,12 @@ class NewToDoView : BaseView {
         $0.textColor =  .systemGray2
     }
     
-    let memoTextView = UITextView().then {
-        $0.text = "메모"
-        $0.font = .systemFont(ofSize: 16)
-        $0.textColor = .systemGray2
+    let memoTextView =  UITextField().then {
+        $0.attributedPlaceholder = NSAttributedString(string: " 메모",
+                                                      attributes: [NSAttributedString.Key.foregroundColor : UIColor.systemGray2,
+                                                                   NSAttributedString.Key.font: UIFont(name: "Georgia", size: 16)!])
         $0.backgroundColor = .clear
+        $0.textColor =  .systemGray2
     }
     
     let bottomStackView = UIStackView().then {

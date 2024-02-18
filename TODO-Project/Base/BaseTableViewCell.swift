@@ -7,10 +7,10 @@
 
 import UIKit
 
-class BaseTableSystemViewCell : UITableViewCell {
+class BaseTableViewCell : UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: .subtitle, reuseIdentifier: reuseIdentifier) // subtitle
+        super.init(style: style, reuseIdentifier: reuseIdentifier) // subtitle
         
         configureHierarchy()
         configureLayout()
@@ -32,5 +32,11 @@ class BaseTableSystemViewCell : UITableViewCell {
     
     func configureView() {
         
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 15, left: 0, bottom: 0, right: 0))
     }
 }
