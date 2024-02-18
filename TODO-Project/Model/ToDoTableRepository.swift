@@ -86,11 +86,16 @@ final class ToDoTableRepository {
         return realm.objects(ToDoTable.self).sorted(byKeyPath: sortKey, ascending: true)
     }
     
-    func updateItem(id : ObjectId, money : Int, category : String) {
+    
+    //TODO: - flag랑 complete 나중에
+    func updateItem(id : ObjectId, title : String, memo : String?, endDate : Date?, tag : String?, priority : String) {
         do {
             try realm.write {
                 realm.create(ToDoTable.self,
-                             value: ["id": id, "money":money, "category":category],
+                             value: ["_id": id, "title":title, 
+                                     "memo":memo, 
+                                     "endDate" : endDate,
+                                     "tag":tag, "prioority":priority],
                              update: .modified)
             }
         } catch {

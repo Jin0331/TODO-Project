@@ -65,13 +65,15 @@ class ToDoListViewController: BaseViewController {
         
         navigationItem.title = navigationTitle
 
-        let refreshButton = BlockBarButtonItem(image: UIImage(systemName: "arrow.clockwise"), style: .plain) {
-            self.dataList = self.repository.fetch()
-        }
+//        let refreshButton = BlockBarButtonItem(image: UIImage(systemName: "arrow.clockwise"), style: .plain) {
+//            self.dataList = self.repository.fetchAll()
+////            self.mainTableView.reloadData()
+//        }
         
         let pullDownButton = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"),
                                               menu: menu)
-        navigationItem.rightBarButtonItems = [pullDownButton,refreshButton]
+//        navigationItem.rightBarButtonItems = [pullDownButton,refreshButton]
+        navigationItem.rightBarButtonItems = [pullDownButton]
     }
 }
 
@@ -94,7 +96,6 @@ extension ToDoListViewController : UITableViewDelegate, UITableViewDataSource {
         if let cell = sender.superview?.superview as? NewToDoListTableViewCell, // superview를 이용하여
            let indexPath = mainTableView.indexPath(for: cell){
             
-            print(dataList[indexPath.row])
             repository.updateComplete(dataList[indexPath.row])
             mainTableView.reloadData()
         }
@@ -130,7 +131,13 @@ extension ToDoListViewController : UITableViewDelegate, UITableViewDataSource {
         
         let row = dataList[indexPath.row]
         let vc = DetailToDoViewController()
+        
+        //TODO: - vc.dataList는 Result타입이 아닌, ToDoTable
+        
         vc.dataList = row
+        vc.tableViewReload = {
+            self.mainTableView.reloadData()
+        }
         
         present(UINavigationController(rootViewController: vc), animated: true)
     }

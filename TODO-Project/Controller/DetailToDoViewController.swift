@@ -11,10 +11,17 @@ import RealmSwift
 class DetailToDoViewController: NewToDoViewController {
     
     var dataList : ToDoTable?
+    var tableViewReload : (() -> Void)?
     
     override func configureView() {
 
-//        mainView.subItemView[0].subLabel.text = dataList.endDate
+        guard let dataList = dataList else { return }
+        
+        mainView.titleTextField.text = dataList.title
+        mainView.memoTextView.text = dataList.memo
+        mainView.subItemView[0].subLabel.text = dataList.endDate?.toString(dateFormat: "yy.MM.dd")
+        mainView.subItemView[1].subLabel.text = dataList.tag
+        mainView.subItemView[2].subLabel.text = dataList.priority
         
     }
     
@@ -33,9 +40,17 @@ class DetailToDoViewController: NewToDoViewController {
     
     @objc override func saveButton(_ sender : UIButton) {
         
-
-        repository.realmLocation()
+        guard let dataList = dataList else { return }
+        
+        repository.updateItem(id: dataList._id,
+                              title: mainView.titleTextField.text!,
+                              memo: mainView.memoTextView.text,
+                              endDate: mainView.subItemView[0].subLabel.text?.toDate(dateFormat: "yy.MM.dd") ?? nil,
+                              tag: mainView.subItemView[1].subLabel.text,
+                              priority: mainView.subItemView[2].subLabel.text!)
+        
         dismiss(animated: true)
+        tableViewReload?()
         
     }
     

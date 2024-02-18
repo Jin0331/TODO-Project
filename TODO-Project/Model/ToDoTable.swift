@@ -31,18 +31,16 @@ class ToDoTable : Object {
         self.completed = completed
     }
     
-    var endDateFormatting : String {
-        get {
-            guard let endDate = endDate else { return ""}
-            return endDate.toString(dateFormat: "yy.M.d")
-        }
-    }
+//    var endDateFormatting : String {
+//        get {
+//            guard let endDate = endDate else { return ""}
+//            return endDate.toString(dateFormat: "yy.M.d")
+//        }
+//    }
     
-    var endDateFiltered : String {
+    var endDateFiltered : String? {
         get {
-            
-            guard let endDate = endDate else { return ""}
-            return endDate.toString(dateFormat: "yy/MM/dd")
+            return endDate?.toString(dateFormat: "yy/MM/dd")
         }
     }
 }

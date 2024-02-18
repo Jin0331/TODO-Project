@@ -12,6 +12,7 @@ class NewToDoViewController: BaseViewController {
 
     let mainView = NewToDoView()
     let repository = ToDoTableRepository()
+    var countUpdate : (() -> Void)?
     
     override func loadView() {
         self.view = mainView
@@ -55,7 +56,7 @@ class NewToDoViewController: BaseViewController {
         
         let item = ToDoTable(title: mainView.titleTextField.text!,
                              memo: mainView.memoTextView.text,
-                             endDate: mainView.subItemView[NewToDoViewEnum.endTime.index].subLabel.text?.toDate(dateFormat: "yy.MM.dd"),
+                             endDate: mainView.subItemView[NewToDoViewEnum.endTime.index].subLabel.text?.toDate(dateFormat: "yy.MM.dd") ?? nil,
                              tag: mainView.subItemView[NewToDoViewEnum.tag.index].subLabel.text,
                              priority: mainView.subItemView[NewToDoViewEnum.priority.index].subLabel.text!,
                              flag : false,
@@ -64,6 +65,9 @@ class NewToDoViewController: BaseViewController {
         
         repository.createItem(item)
         repository.realmLocation()
+        
+        countUpdate?() // 이전 화면 함수 호출
+        
         dismiss(animated: true)
         
     }
@@ -79,7 +83,7 @@ class NewToDoViewController: BaseViewController {
         case .endTime :
             let vc = DateViewController()
             vc.datePickerSpace = { value in
-                self.mainView.subItemView[eCase.index].subLabel.text = value.toString(dateFormat: "yy.M.d H시 m분")
+                self.mainView.subItemView[eCase.index].subLabel.text = value.toString(dateFormat: "yy.MM.dd")
             }
             navigationController?.pushViewController(vc, animated: true)
         case .tag :

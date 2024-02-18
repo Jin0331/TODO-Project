@@ -56,11 +56,11 @@ class ToDoViewController: BaseViewController {
     @objc func leftToolbarItemClicked(_ sender : UIButton) {
         print(#function)
         
-        let vc = UINavigationController(rootViewController: NewToDoViewController())
-        
-        present(vc, animated: true) {
+        let vc =  NewToDoViewController()
+        vc.countUpdate = {
             self.countUpdate()
         }
+        present(UINavigationController(rootViewController: vc), animated: true)
     }
     
     @objc func transitionButtonClicked(_ sender : UIButton) {
