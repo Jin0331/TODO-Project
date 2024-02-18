@@ -100,6 +100,12 @@ class NewToDoListTableViewCell: BaseTableViewCell {
     
     func receiveData(data : ToDoTable) {
         
+        if data.completed == true {
+            completeImage.image = UIImage(systemName: "circle.inset.filled")
+        } else {
+            completeImage.image = UIImage(systemName: "circle")
+        }
+        
         let priorityEmoji = String(repeating: "❗️", count: Int(data.priority)!)
         
         titleLabel.text = priorityEmoji + data.title

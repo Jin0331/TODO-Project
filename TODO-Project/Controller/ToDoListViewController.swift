@@ -90,9 +90,6 @@ extension ToDoListViewController : UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-
-    
-    
     @objc func completeButtonClicked(_ sender : UIButton){
         if let cell = sender.superview?.superview as? NewToDoListTableViewCell, // superview를 이용하여
            let indexPath = mainTableView.indexPath(for: cell){
@@ -102,4 +99,31 @@ extension ToDoListViewController : UITableViewDelegate, UITableViewDataSource {
             mainTableView.reloadData()
         }
     }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let flag = UIContextualAction(style: .normal, title: "깃발") {action, view, completionHandler in
+            
+            self.repository.updateFlag(self.dataList[indexPath.row])
+            print(self.dataList[indexPath.row])
+            completionHandler(true)
+        }
+
+        // weak self : 클로져 내부에서 self 를 사용할 때 strong reference cycle 예방
+        let delete = UIContextualAction(style: .normal, title: "삭제") {action, view, completionHandler in
+
+            // 삭제 처리
+            self.repository.removeItem(self.dataList[indexPath.row])
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            completionHandler(true)
+        }
+
+        flag.backgroundColor = .orange
+        delete.backgroundColor = .red
+
+        let config = UISwipeActionsConfiguration(actions: [delete,flag])
+        config.performsFirstActionWithFullSwipe = false
+        
+        return config
+    }
+    
 }

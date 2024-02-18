@@ -67,30 +67,25 @@ final class ToDoTableRepository {
         
     }
 
-    
     func fetchComplete() -> Results<ToDoTable> {
         
         return realm.objects(ToDoTable.self).where {
             $0.completed == true
         }
-        
     }
     
+    func fetchFlag() -> Results<ToDoTable> {
+        
+        return realm.objects(ToDoTable.self).where {
+            $0.flag == true
+        }
+    }
     
     func fetchSort(_ sortKey : String) -> Results<ToDoTable> {
         
         return realm.objects(ToDoTable.self).sorted(byKeyPath: sortKey, ascending: true)
     }
     
-//    func fetchNowDate() -> Results<ToDoTable> {
-//        
-//        return realm.objects(ToDoTable.self).where{
-//            $0.endDate == Date().formatted("yy.MM.dd")
-//        }
-//    }
-    
-    
-    //3. 한 레코드에서 여러 컬럼 정보를 변경하고 싶을 떄
     func updateItem(id : ObjectId, money : Int, category : String) {
         do {
             try realm.write {
@@ -103,13 +98,32 @@ final class ToDoTableRepository {
         }
     }
     
-    
-    //1. 한 레코드에 특정 컬럼값을 수정하고 싶은 경우
     func updateComplete(_ item : ToDoTable) {
         
         do {
             try realm.write {
                 item.completed.toggle()
+            }
+        } catch {
+            print(error)
+        }
+    }
+    
+    func updateFlag(_ item : ToDoTable) {
+        
+        do {
+            try realm.write {
+                item.flag.toggle()
+            }
+        } catch {
+            print(error)
+        }
+    }
+    
+    func removeItem(_ item : ToDoTable) {
+        do {
+            try realm.write {
+                realm.delete(item)
             }
         } catch {
             print(error)

@@ -12,6 +12,7 @@ class NewToDoViewController: BaseViewController {
 
     let mainView = NewToDoView()
     let repository = ToDoTableRepository()
+    var countUpdate : ((String) -> Void)?
     
     override func loadView() {
         self.view = mainView
@@ -27,8 +28,7 @@ class NewToDoViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        // 화면이 전환될때마다 save button에 대한 enable 판단 ---> 이 function으로 Realm에서 예외처리가 될 듯.  save button을 막아버림
+
         saveButtonEnable()
         
     }
@@ -50,6 +50,7 @@ class NewToDoViewController: BaseViewController {
     
     @objc func cancleButtonItemClicked(_ sender : UIButton) {
         dismiss(animated: true)
+        countUpdate?("")
     }
     
     @objc func saveButton(_ sender : UIButton) {

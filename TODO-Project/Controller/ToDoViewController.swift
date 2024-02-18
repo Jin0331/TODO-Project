@@ -18,6 +18,7 @@ class ToDoViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        print(#function)
         countUpdate()
     }
     
@@ -103,6 +104,9 @@ class ToDoViewController: BaseViewController {
 //        mainView.leftSubView[0].countLabel.text = String(repository.fetchNowDate().count) // 오늘
         mainView.leftSubView[1].countLabel.text = String(repository.fetchAll().count) // 전체
         mainView.leftSubView[2].countLabel.text = String(repository.fetchComplete().count) // 완료
+        
+        mainView.rightSubView[1].countLabel.text = String(repository.fetchFlag().count) // 깃발
+        
     }
     
     
