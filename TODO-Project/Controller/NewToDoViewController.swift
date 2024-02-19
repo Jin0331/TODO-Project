@@ -60,7 +60,7 @@ class NewToDoViewController: BaseViewController {
         
         let item = ToDoTable(title: mainView.titleTextField.text!,
                              memo: mainView.memoTextView.text,
-                             endDate: mainView.subItemView[NewToDoViewEnum.endTime.index].subLabel.text?.toDate(dateFormat: "yy.MM.dd") ?? nil,
+                             endDate: mainView.subItemView[NewToDoViewEnum.endTime.index].subLabel.text?.toDate(dateFormat: "yy.MM.dd H:m") ?? nil,
                              tag: mainView.subItemView[NewToDoViewEnum.tag.index].subLabel.text,
                              priority: mainView.subItemView[NewToDoViewEnum.priority.index].subLabel.text,
                              flag : false,
@@ -93,7 +93,7 @@ class NewToDoViewController: BaseViewController {
         case .endTime :
             let vc = DateViewController()
             vc.datePickerSpace = { value in
-                self.mainView.subItemView[eCase.index].subLabel.text = value.toString(dateFormat: "yy.MM.dd")
+                self.mainView.subItemView[eCase.index].subLabel.text = value.toString(dateFormat: "yy.MM.dd H:m")
             }
             navigationController?.pushViewController(vc, animated: true)
         case .tag :

@@ -39,8 +39,14 @@ class ToDoViewController: BaseViewController {
         
         navigationController?.isToolbarHidden = false
         
-        var items : [UIBarButtonItem] = []
+        // navigation
+        let leftNavigationItem = UIBarButtonItem(image: UIImage(systemName: "calendar.circle"), style: .plain, target: self, action: #selector(leftNavigationItemClicked))
+        leftNavigationItem.tintColor = .systemPink
         
+        navigationItem.leftBarButtonItem = leftNavigationItem
+        
+        // toolbar
+        var items : [UIBarButtonItem] = []
         //TODO: - image와 label 추가하려면 UIButton 이용해서 Custom,으로 제작해야 됨. ---> 나중에
         let leftToolbarItem = UIBarButtonItem(image: UIImage(systemName: "plus.circle.fill"), style: .plain, target: self, action: #selector(leftToolbarItemClicked))
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
@@ -51,6 +57,14 @@ class ToDoViewController: BaseViewController {
         items.append(rightToolbarItem)
         
         toolbarItems = items
+    }
+    
+    @objc func leftNavigationItemClicked(_ sender : UIButton) {
+        print(#function)
+        
+        let vc = CalendarViewController()
+        navigationController?.pushViewController(vc, animated: true)
+        
     }
     
     @objc func leftToolbarItemClicked(_ sender : UIButton) {
