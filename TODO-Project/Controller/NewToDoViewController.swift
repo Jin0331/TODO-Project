@@ -68,6 +68,12 @@ class NewToDoViewController: BaseViewController {
         )
         
         repository.createItem(item)
+        
+        // PK별 이미지 추가
+        if let image = mainView.subItemView[NewToDoViewEnum.addImage.index].rightImageView.image {
+            saveImageToDocument(image: image, filename: "\(item._id)")
+        }
+        
         repository.realmLocation()
         
         countUpdate?() // 이전 화면 함수 호출
