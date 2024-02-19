@@ -111,7 +111,7 @@ extension CalendarViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: NewToDoListTableViewCell.identifier, for: indexPath) as! NewToDoListTableViewCell
         cell.receiveData(data: dataList[indexPath.row])
-        cell.rightImageView.image = loadImageToDocument(filename: dataList[indexPath.row]._id.stringValue)
+        cell.rightImageView.image = loadImageToDocument(pk: dataList[indexPath.row]._id.stringValue)
 
         return cell
     }
