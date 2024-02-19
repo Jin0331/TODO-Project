@@ -106,11 +106,14 @@ class NewToDoListTableViewCell: BaseTableViewCell {
             completeImage.image = UIImage(systemName: "circle")
         }
         
-        let priorityEmoji = String(repeating: "❗️", count: Int(data.priority)!)
+        if let priority = data.priority {
+            let priorityEmoji = String(repeating: "❗️", count: Int(priority)! + 1)
+            titleLabel.text = priorityEmoji + data.title
+        } else {
+            titleLabel.text = data.title
+        }
         
-        titleLabel.text = priorityEmoji + data.title
-        
-        if let memo = data.memo {
+        if let memo = data.memo, memo.count > 0 {
             memoLabel.text = memo
         } else {
             memoLabel.isHidden = true

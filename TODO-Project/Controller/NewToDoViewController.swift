@@ -9,7 +9,7 @@ import UIKit
 import RealmSwift
 
 class NewToDoViewController: BaseViewController {
-
+    
     let mainView = NewToDoView()
     let repository = ToDoTableRepository()
     var countUpdate : (() -> Void)?
@@ -24,15 +24,11 @@ class NewToDoViewController: BaseViewController {
         mainView.subItemView.forEach {
             return $0.rightButton.addTarget(self, action: #selector(itemRightButtonClicked), for: .touchUpInside)
         }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        saveButtonEnable()
+        
+        //MARK: - 저장 버튼 활성화, textfield에 data(>2)가 입력되었을 때 반영되도록.
+        mainView.titleTextField.addTarget(self, action: #selector(saveButtonEnable), for: .editingChanged)
         
     }
-    
     
     override func configureNavigation() {
         super.configureNavigation()
@@ -58,7 +54,7 @@ class NewToDoViewController: BaseViewController {
                              memo: mainView.memoTextView.text,
                              endDate: mainView.subItemView[NewToDoViewEnum.endTime.index].subLabel.text?.toDate(dateFormat: "yy.MM.dd") ?? nil,
                              tag: mainView.subItemView[NewToDoViewEnum.tag.index].subLabel.text,
-                             priority: mainView.subItemView[NewToDoViewEnum.priority.index].subLabel.text!,
+                             priority: mainView.subItemView[NewToDoViewEnum.priority.index].subLabel.text,
                              flag : false,
                              completed: false
         )
@@ -103,13 +99,15 @@ class NewToDoViewController: BaseViewController {
         }
     }
     
-    private func saveButtonEnable() {
-        if let title = mainView.titleTextField.text,
-           let _ = mainView.subItemView[NewToDoViewEnum.priority.index].subLabel.text {
+    @objc func saveButtonEnable(_ sender : UITextField) {
+        
+        print(#function)
+        var title = sender.text!
+        
+        if let title = mainView.titleTextField.text, title.count > 1 {
             
-            if title.count > 0 {
-                navigationItem.rightBarButtonItem?.isEnabled = true
-            }
+            navigationItem.rightBarButtonItem?.isEnabled = true
+            
         } else {
             navigationItem.rightBarButtonItem?.isEnabled = false
         }

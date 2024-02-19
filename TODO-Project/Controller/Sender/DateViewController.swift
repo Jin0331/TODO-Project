@@ -16,7 +16,6 @@ class DateViewController: BaseViewController {
     let datePicker = UIDatePicker().then {
         $0.preferredDatePickerStyle = .wheels
         $0.datePickerMode = .date
-        $0.locale = Locale(identifier: "ko_KR")
     }
     
     

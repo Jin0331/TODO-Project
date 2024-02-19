@@ -14,12 +14,12 @@ class ToDoTable : Object {
     @Persisted var memo : String? // 메모(옵션)
     @Persisted var endDate : Date?
     @Persisted var tag : String?
-    @Persisted var priority : String
+    @Persisted var priority : String?
     @Persisted var flag : Bool
     @Persisted var completed : Bool
     
     convenience init(title: String, memo: String? = nil, endDate: Date?,
-                     tag: String?, priority: String, flag : Bool, completed : Bool) {
+                     tag: String?, priority: String?, flag : Bool, completed : Bool) {
         self.init()
         
         self.title = title

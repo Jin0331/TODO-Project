@@ -47,7 +47,7 @@ class DetailToDoViewController: NewToDoViewController {
                               memo: mainView.memoTextView.text,
                               endDate: mainView.subItemView[0].subLabel.text?.toDate(dateFormat: "yy.MM.dd") ?? nil,
                               tag: mainView.subItemView[1].subLabel.text,
-                              priority: mainView.subItemView[2].subLabel.text!)
+                              priority: mainView.subItemView[2].subLabel.text)
         
         dismiss(animated: true)
         tableViewReload?()
