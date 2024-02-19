@@ -71,7 +71,7 @@ class NewToDoViewController: BaseViewController {
         
         // PK별 이미지 추가
         if let image = mainView.subItemView[NewToDoViewEnum.addImage.index].rightImageView.image {
-            saveImageToDocument(image: image, filename: "\(item._id)")
+            saveImageToDocument(image: image, pk: "\(item._id)")
         }
         
         repository.realmLocation()

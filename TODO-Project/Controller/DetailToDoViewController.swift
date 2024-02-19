@@ -22,7 +22,7 @@ class DetailToDoViewController: NewToDoViewController {
         mainView.subItemView[NewToDoViewEnum.endTime.index].subLabel.text = dataList.endDate?.toString(dateFormat: "yy.MM.dd H:m")
         mainView.subItemView[NewToDoViewEnum.tag.index].subLabel.text = dataList.tag
         mainView.subItemView[NewToDoViewEnum.priority.index].subLabel.text = dataList.priority
-        mainView.subItemView[NewToDoViewEnum.addImage.index].rightImageView.image = loadImageToDocument(filename: dataList._id.stringValue)
+        mainView.subItemView[NewToDoViewEnum.addImage.index].rightImageView.image = loadImageToDocument(pk: dataList._id.stringValue)
         
     }
     
@@ -52,7 +52,7 @@ class DetailToDoViewController: NewToDoViewController {
         
         // PK별 이미지 추가
         if let image = mainView.subItemView[NewToDoViewEnum.addImage.index].rightImageView.image {
-            saveImageToDocument(image: image, filename: "\(dataList._id)")
+            saveImageToDocument(image: image, pk: "\(dataList._id)")
         }
         
         dismiss(animated: true)
