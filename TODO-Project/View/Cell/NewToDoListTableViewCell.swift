@@ -28,6 +28,13 @@ class NewToDoListTableViewCell: BaseTableViewCell {
         $0.font = .systemFont(ofSize: 15, weight: .semibold)
     }
     
+    let rightImageView = UIImageView().then {
+        $0.backgroundColor = .clear
+        $0.contentMode = .scaleToFill
+        $0.clipsToBounds = true
+        $0.layer.cornerRadius = 10
+    }
+    
     let outerStackView = UIStackView().then {
         $0.axis = .vertical
         $0.distribution = .fillEqually
@@ -58,7 +65,7 @@ class NewToDoListTableViewCell: BaseTableViewCell {
     
     override func configureHierarchy() {
         
-        [completeImage, completeButton, titleLabel, outerStackView].forEach {
+        [completeImage, completeButton, titleLabel, rightImageView, outerStackView].forEach {
             contentView.addSubview($0)
         }
         
@@ -86,9 +93,16 @@ class NewToDoListTableViewCell: BaseTableViewCell {
             make.height.equalTo(20)
         }
         
+        rightImageView.snp.makeConstraints { make in
+            make.top.trailing.equalTo(contentView.safeAreaLayoutGuide).inset(5)
+            make.height.equalTo(60)
+            make.width.equalTo(80)
+        }
+        
         outerStackView.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom)
-            make.horizontalEdges.equalTo(titleLabel)
+            make.leading.equalTo(titleLabel.snp.leading)
+            make.trailing.equalTo(rightImageView.snp.leading)
             make.height.equalTo(50)
         }
     }
@@ -106,11 +120,14 @@ class NewToDoListTableViewCell: BaseTableViewCell {
             completeImage.image = UIImage(systemName: "circle")
         }
         
-        let priorityEmoji = String(repeating: "❗️", count: Int(data.priority)!)
+        if let priority = data.priority {
+            let priorityEmoji = String(repeating: "❗️", count: Int(priority)! + 1)
+            titleLabel.text = priorityEmoji + data.title
+        } else {
+            titleLabel.text = data.title
+        }
         
-        titleLabel.text = priorityEmoji + data.title
-        
-        if let memo = data.memo {
+        if let memo = data.memo, memo.count > 0 {
             memoLabel.text = memo
         } else {
             memoLabel.isHidden = true
@@ -127,7 +144,6 @@ class NewToDoListTableViewCell: BaseTableViewCell {
         } else {
             tagLabel.isHidden = true
         }
-        
     }
     
     

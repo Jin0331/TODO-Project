@@ -77,26 +77,44 @@ final class ToDoTableRepository {
     func fetchFlag() -> Results<ToDoTable> {
         
         return realm.objects(ToDoTable.self).where {
-            $0.flag == true
+            $0.flag == true && $0.completed == false
         }
     }
     
-    func fetchSort(_ sortKey : String) -> Results<ToDoTable> {
         
-        return realm.objects(ToDoTable.self).sorted(byKeyPath: sortKey, ascending: true)
+    func fetchToday() -> Results<ToDoTable> {
+        
+        let start = Calendar.current.startOfDay(for: Date()) // 현재시간
+        let end : Date = Calendar.current.date(byAdding: .day, value: 1, to: start) ?? Date()
+        
+        return realm.objects(ToDoTable.self).where {
+            $0.completed == false
+        }.filter("endDate >= %@ && endDate < %@", start as NSDate, end as NSDate)
+    }
+    
+    func fetchTomorrow() -> Results<ToDoTable> {
+        
+        let start = Calendar.current.startOfDay(for: Date()) // 현재시간
+        let end : Date = Calendar.current.date(byAdding: .day, value: 1, to: start) ?? Date()
+        
+        return realm.objects(ToDoTable.self).where {
+            $0.completed == false
+        }.filter("endDate >= %@", end as NSDate)
+    }
+    
+    
+    func fetchSort(dataList: Results<ToDoTable>, sortKey : String) -> Results<ToDoTable> {
+        
+        return dataList.sorted(byKeyPath: sortKey, ascending: true)
     }
     
     
     //TODO: - flag랑 complete 나중에
-    func updateItem(id : ObjectId, title : String, memo : String?, endDate : Date?, tag : String?, priority : String) {
+    func updateItem(id : ObjectId, title : String, memo : String?, endDate : Date?, tag : String?, priority : String?) {
         do {
             try realm.write {
                 realm.create(ToDoTable.self,
-                             value: ["_id": id, "title":title, 
-                                     "memo":memo, 
-                                     "endDate" : endDate,
-                                     "tag":tag, "prioority":priority],
-                             update: .modified)
+                             value: ["_id": id, "title":title, "memo": memo, "endDate" : endDate,"tag":tag, "priority":priority], update: .modified)
             }
         } catch {
             print(error)

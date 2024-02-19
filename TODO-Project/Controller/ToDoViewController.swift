@@ -39,8 +39,14 @@ class ToDoViewController: BaseViewController {
         
         navigationController?.isToolbarHidden = false
         
-        var items : [UIBarButtonItem] = []
+        // navigation
+        let leftNavigationItem = UIBarButtonItem(image: UIImage(systemName: "calendar.circle"), style: .plain, target: self, action: #selector(leftNavigationItemClicked))
+        leftNavigationItem.tintColor = .systemPink
         
+        navigationItem.leftBarButtonItem = leftNavigationItem
+        
+        // toolbar
+        var items : [UIBarButtonItem] = []
         //TODO: - image와 label 추가하려면 UIButton 이용해서 Custom,으로 제작해야 됨. ---> 나중에
         let leftToolbarItem = UIBarButtonItem(image: UIImage(systemName: "plus.circle.fill"), style: .plain, target: self, action: #selector(leftToolbarItemClicked))
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
@@ -51,6 +57,14 @@ class ToDoViewController: BaseViewController {
         items.append(rightToolbarItem)
         
         toolbarItems = items
+    }
+    
+    @objc func leftNavigationItemClicked(_ sender : UIButton) {
+        print(#function)
+        
+        let vc = CalendarViewController()
+        navigationController?.pushViewController(vc, animated: true)
+        
     }
     
     @objc func leftToolbarItemClicked(_ sender : UIButton) {
@@ -64,33 +78,47 @@ class ToDoViewController: BaseViewController {
     }
     
     @objc func transitionButtonClicked(_ sender : UIButton) {
-        
-//        print(#function, sender.superview?.layer.name)
-        
+                
         guard let superViewName = sender.superview?.layer.name else { return }
         guard let eCaseRawValue = sender.layer.name else { return }
         
         if superViewName == "left" {
             switch ToDoViewEnum.leftStack(rawValue: eCaseRawValue) {
             case .all :
-                print("hihi - all 전체") //TODO: - Navigation transition
-                
                 let vc = ToDoListViewController()
                 vc.navigationTitle = "전체"
                 vc.dataList = repository.fetchAll()
-                
                 navigationController?.pushViewController(vc, animated: true)
                 
             case .completed :
                 let vc = ToDoListViewController()
                 vc.navigationTitle = "완료"
                 vc.dataList = repository.fetchComplete()
-                
+                navigationController?.pushViewController(vc, animated: true)
+            case .today :
+                let vc = ToDoListViewController()
+                vc.navigationTitle = "오늘"
+                vc.dataList = repository.fetchToday()
                 navigationController?.pushViewController(vc, animated: true)
             default :
-                print("아직 구현 아니야~!")
+                print("error")
             }
-            
+        } else if superViewName == "right" {
+            switch ToDoViewEnum.rightStack(rawValue: eCaseRawValue) {
+            case .plan :
+                let vc = ToDoListViewController()
+                vc.navigationTitle = "예정"
+                vc.dataList = repository.fetchTomorrow()
+                navigationController?.pushViewController(vc, animated: true)
+            case .flag :
+                let vc = ToDoListViewController()
+                vc.navigationTitle = "깃발"
+                vc.dataList = repository.fetchFlag()
+                navigationController?.pushViewController(vc, animated: true)
+            default :
+                print("error")
+                
+            }
         }
         
         
@@ -103,10 +131,11 @@ class ToDoViewController: BaseViewController {
     
     func countUpdate() {
         //TODO: - Date filter 방법 찾아야됨.
-//        mainView.leftSubView[0].countLabel.text = String(repository.fetchNowDate().count) // 오늘
+        mainView.leftSubView[0].countLabel.text = String(repository.fetchToday().count) // 오늘
         mainView.leftSubView[1].countLabel.text = String(repository.fetchAll().count) // 전체
         mainView.leftSubView[2].countLabel.text = String(repository.fetchComplete().count) // 완료
         
+        mainView.rightSubView[0].countLabel.text = String(repository.fetchTomorrow().count) // 예정
         mainView.rightSubView[1].countLabel.text = String(repository.fetchFlag().count) // 깃발
         
     }

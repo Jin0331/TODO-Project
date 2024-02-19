@@ -71,7 +71,7 @@ class NewToDoView : BaseView {
     let subItemView = (0..<NewToDoViewEnum.allCases.count).map { index in
         
         let subView = ItemView()
-        subView.rightButton.tag = index
+        subView.labelButton.tag = index
         
         return subView
     }

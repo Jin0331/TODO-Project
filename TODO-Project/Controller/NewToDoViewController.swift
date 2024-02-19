@@ -9,7 +9,7 @@ import UIKit
 import RealmSwift
 
 class NewToDoViewController: BaseViewController {
-
+    
     let mainView = NewToDoView()
     let repository = ToDoTableRepository()
     var countUpdate : (() -> Void)?
@@ -18,21 +18,25 @@ class NewToDoViewController: BaseViewController {
         self.view = mainView
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        view.endEditing(true)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         mainView.subItemView.forEach {
-            return $0.rightButton.addTarget(self, action: #selector(itemRightButtonClicked), for: .touchUpInside)
+            
+            return $0.labelButton.addTarget(self, action: #selector(cellClicked), for: .touchUpInside)
         }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        saveButtonEnable()
+        
+        //MARK: - 저장 버튼 활성화, textfield에 data(>2)가 입력되었을 때 반영되도록.
+        mainView.titleTextField.becomeFirstResponder()
+        mainView.titleTextField.addTarget(self, action: #selector(saveButtonEnable), for: .editingDidBegin)
         
     }
-    
     
     override func configureNavigation() {
         super.configureNavigation()
@@ -56,14 +60,20 @@ class NewToDoViewController: BaseViewController {
         
         let item = ToDoTable(title: mainView.titleTextField.text!,
                              memo: mainView.memoTextView.text,
-                             endDate: mainView.subItemView[NewToDoViewEnum.endTime.index].subLabel.text?.toDate(dateFormat: "yy.MM.dd") ?? nil,
+                             endDate: mainView.subItemView[NewToDoViewEnum.endTime.index].subLabel.text?.toDate(dateFormat: "yy.MM.dd H:m") ?? nil,
                              tag: mainView.subItemView[NewToDoViewEnum.tag.index].subLabel.text,
-                             priority: mainView.subItemView[NewToDoViewEnum.priority.index].subLabel.text!,
+                             priority: mainView.subItemView[NewToDoViewEnum.priority.index].subLabel.text,
                              flag : false,
                              completed: false
         )
         
         repository.createItem(item)
+        
+        // PK별 이미지 추가
+        if let image = mainView.subItemView[NewToDoViewEnum.addImage.index].rightImageView.image {
+            saveImageToDocument(image: image, filename: "\(item._id)")
+        }
+        
         repository.realmLocation()
         
         countUpdate?() // 이전 화면 함수 호출
@@ -72,8 +82,8 @@ class NewToDoViewController: BaseViewController {
         
     }
     
-    // subView objc func
-    @objc func itemRightButtonClicked(_ sender : UIButton) {
+    // subView objc func -- 같은 VC 사용
+    @objc func cellClicked(_ sender : UIButton) {
         
         print(#function)
         let eCase = NewToDoViewEnum(rawValue: sender.tag) // tag의 값이 불명확하므로, eCase는 option value가 됨
@@ -83,7 +93,7 @@ class NewToDoViewController: BaseViewController {
         case .endTime :
             let vc = DateViewController()
             vc.datePickerSpace = { value in
-                self.mainView.subItemView[eCase.index].subLabel.text = value.toString(dateFormat: "yy.MM.dd")
+                self.mainView.subItemView[eCase.index].subLabel.text = value.toString(dateFormat: "yy.MM.dd H:m")
             }
             navigationController?.pushViewController(vc, animated: true)
         case .tag :
@@ -98,21 +108,43 @@ class NewToDoViewController: BaseViewController {
                 self.mainView.subItemView[eCase.index].subLabel.text = "\(value)"
             }
             navigationController?.pushViewController(vc, animated: true)
-        default :
-            print("아직 구현 안 됨")
+        case .addImage :
+            let vc = UIImagePickerController()
+            vc.allowsEditing = true
+            vc.delegate = self
+
+            present(vc, animated: true)
         }
     }
     
-    private func saveButtonEnable() {
-        if let title = mainView.titleTextField.text,
-           let _ = mainView.subItemView[NewToDoViewEnum.priority.index].subLabel.text {
+    @objc func saveButtonEnable(_ sender : UITextField) {
+        
+        print(#function)
+        if let title = sender.text, title.count > 1 {
+            navigationItem.rightBarButtonItem?.isEnabled = true
             
-            if title.count > 0 {
-                navigationItem.rightBarButtonItem?.isEnabled = true
-            }
         } else {
             navigationItem.rightBarButtonItem?.isEnabled = false
         }
     }
     
+}
+
+//MARK: - Image picker
+extension NewToDoViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        print(#function)
+        dismiss(animated: true)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        print(#function)
+        
+        let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+        mainView.subItemView[NewToDoViewEnum.addImage.index].rightImageView.image = pickedImage
+        
+        dismiss(animated: true)
+    }
 }

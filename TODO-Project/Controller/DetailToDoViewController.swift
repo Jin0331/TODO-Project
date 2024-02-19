@@ -19,9 +19,10 @@ class DetailToDoViewController: NewToDoViewController {
         
         mainView.titleTextField.text = dataList.title
         mainView.memoTextView.text = dataList.memo
-        mainView.subItemView[0].subLabel.text = dataList.endDate?.toString(dateFormat: "yy.MM.dd")
-        mainView.subItemView[1].subLabel.text = dataList.tag
-        mainView.subItemView[2].subLabel.text = dataList.priority
+        mainView.subItemView[NewToDoViewEnum.endTime.index].subLabel.text = dataList.endDate?.toString(dateFormat: "yy.MM.dd H:m")
+        mainView.subItemView[NewToDoViewEnum.tag.index].subLabel.text = dataList.tag
+        mainView.subItemView[NewToDoViewEnum.priority.index].subLabel.text = dataList.priority
+        mainView.subItemView[NewToDoViewEnum.addImage.index].rightImageView.image = loadImageToDocument(filename: dataList._id.stringValue)
         
     }
     
@@ -45,9 +46,14 @@ class DetailToDoViewController: NewToDoViewController {
         repository.updateItem(id: dataList._id,
                               title: mainView.titleTextField.text!,
                               memo: mainView.memoTextView.text,
-                              endDate: mainView.subItemView[0].subLabel.text?.toDate(dateFormat: "yy.MM.dd") ?? nil,
+                              endDate: mainView.subItemView[0].subLabel.text?.toDate(dateFormat: "yy.MM.dd H:m") ?? nil,
                               tag: mainView.subItemView[1].subLabel.text,
-                              priority: mainView.subItemView[2].subLabel.text!)
+                              priority: mainView.subItemView[2].subLabel.text)
+        
+        // PK별 이미지 추가
+        if let image = mainView.subItemView[NewToDoViewEnum.addImage.index].rightImageView.image {
+            saveImageToDocument(image: image, filename: "\(dataList._id)")
+        }
         
         dismiss(animated: true)
         tableViewReload?()

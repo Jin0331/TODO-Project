@@ -37,6 +37,9 @@ class BaseViewController: UIViewController {
         navigationController?.navigationBar.scrollEdgeAppearance?.backgroundColor = .black
         navigationController?.navigationBar.barTintColor = UIColor.black
         
+        navigationController?.toolbar.scrollEdgeAppearance?.backgroundColor = .black
+        navigationController?.toolbar.barTintColor = UIColor.black
+        
         // title
         navigationController?.navigationBar.titleTextAttributes = [
             NSAttributedString.Key.foregroundColor : UIColor.white,
