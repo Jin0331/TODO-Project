@@ -29,7 +29,7 @@ class NewToDoViewController: BaseViewController {
         
         mainView.subItemView.forEach {
             
-            return NewToDoViewEnum.addImage.index != $0.labelButton.tag ? $0.labelButton.addTarget(self, action: #selector(cellClicked), for: .touchUpInside) : $0.labelButton.addTarget(self, action: #selector(cellClickedImagePicker), for: .touchUpInside)
+            return $0.labelButton.addTarget(self, action: #selector(cellClicked), for: .touchUpInside)
         }
         
         //MARK: - 저장 버튼 활성화, textfield에 data(>2)가 입력되었을 때 반영되도록.
@@ -103,12 +103,12 @@ class NewToDoViewController: BaseViewController {
             }
             navigationController?.pushViewController(vc, animated: true)
         case .addImage :
-            print("hi")
+            let vc = UIImagePickerController()
+            vc.allowsEditing = true
+            vc.delegate = self
+
+            present(vc, animated: true)
         }
-    }
-    
-    @objc func cellClickedImagePicker(_ sender : UIButton) {
-        print(#function)
     }
     
     @objc func saveButtonEnable(_ sender : UITextField) {
@@ -122,4 +122,23 @@ class NewToDoViewController: BaseViewController {
         }
     }
     
+}
+
+//MARK: - Image picker
+extension NewToDoViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        print(#function)
+        dismiss(animated: true)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        print(#function)
+        
+        let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+        mainView.subItemView[NewToDoViewEnum.addImage.index].rightImageView.image = pickedImage
+        
+        dismiss(animated: true)
+    }
 }
