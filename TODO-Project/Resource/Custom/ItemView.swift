@@ -22,8 +22,6 @@ class ItemView : BaseView {
     }
     
     let rightButtonImageView = UIImageView().then { _ in
-//        $0.image = UIImage(systemName: "chevron.right")
-//        $0.tintColor = .systemGray2
     }
     
     let rightImageView = UIImageView().then {

@@ -77,6 +77,7 @@ class ToDoListViewController: BaseViewController {
     }
 }
 
+//MARK: - tableView delegate, datasource
 extension ToDoListViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataList.count
@@ -86,6 +87,7 @@ extension ToDoListViewController : UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: NewToDoListTableViewCell.identifier, for: indexPath) as! NewToDoListTableViewCell
         
         cell.receiveData(data: dataList[indexPath.row])
+        cell.rightImageView.image = loadImageToDocument(filename: dataList[indexPath.row]._id.stringValue)
         cell.completeButton.addTarget(self, action: #selector(completeButtonClicked), for: .touchUpInside)
         
         
