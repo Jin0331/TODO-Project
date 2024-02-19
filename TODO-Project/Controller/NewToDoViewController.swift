@@ -18,6 +18,13 @@ class NewToDoViewController: BaseViewController {
         self.view = mainView
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        view.endEditing(true)
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -103,10 +110,7 @@ class NewToDoViewController: BaseViewController {
     @objc func saveButtonEnable(_ sender : UITextField) {
         
         print(#function)
-        var title = sender.text!
-        
-        if let title = mainView.titleTextField.text, title.count > 1 {
-            
+        if let title = sender.text, title.count > 1 {
             navigationItem.rightBarButtonItem?.isEnabled = true
             
         } else {
