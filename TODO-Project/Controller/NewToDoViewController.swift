@@ -26,7 +26,8 @@ class NewToDoViewController: BaseViewController {
         }
         
         //MARK: - 저장 버튼 활성화, textfield에 data(>2)가 입력되었을 때 반영되도록.
-        mainView.titleTextField.addTarget(self, action: #selector(saveButtonEnable), for: .editingChanged)
+        mainView.titleTextField.becomeFirstResponder()
+        mainView.titleTextField.addTarget(self, action: #selector(saveButtonEnable), for: .editingDidBegin)
         
     }
     
