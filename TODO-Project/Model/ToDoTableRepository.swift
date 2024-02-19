@@ -103,9 +103,9 @@ final class ToDoTableRepository {
     }
     
     
-    func fetchSort(_ sortKey : String) -> Results<ToDoTable> {
+    func fetchSort(dataList: Results<ToDoTable>, sortKey : String) -> Results<ToDoTable> {
         
-        return realm.objects(ToDoTable.self).sorted(byKeyPath: sortKey, ascending: true)
+        return dataList.sorted(byKeyPath: sortKey, ascending: true)
     }
     
     

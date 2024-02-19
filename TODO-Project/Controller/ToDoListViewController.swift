@@ -23,17 +23,6 @@ class ToDoListViewController: BaseViewController {
         $0.backgroundColor = .clear
     }
     
-    lazy var menuItems: [UIAction] = {
-        return ToDoTableRepository.sortedKey.allCases.map { item in
-            return UIAction(title: item.title, image: UIImage(systemName: item.sortedImage), handler: { _ in
-                self.dataList = self.repository.fetchSort(item.rawValue)})
-        }
-    }()
-    
-    lazy var menu: UIMenu = {
-        return UIMenu(title: "정렬", options: [], children: menuItems)
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -80,15 +69,21 @@ class ToDoListViewController: BaseViewController {
         
         navigationItem.title = navigationTitle
         
-        //        let refreshButton = BlockBarButtonItem(image: UIImage(systemName: "arrow.clockwise"), style: .plain) {
-        //            self.dataList = self.repository.fetchAll()
-        ////            self.mainTableView.reloadData()
-        //        }
+        let menuItems: [UIAction] = {
+            return ToDoTableRepository.sortedKey.allCases.map { item in
+                return UIAction(title: item.title, image: UIImage(systemName: item.sortedImage), handler: { _ in
+                    self.dataList = self.repository.fetchSort(dataList: self.dataList, sortKey: item.rawValue)
+                    self.mainTableView.reloadData()
+                })}
+        }()
         
-        let pullDownButton = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"),
-                                             menu: menu)
-        //        navigationItem.rightBarButtonItems = [pullDownButton,refreshButton]
-        navigationItem.rightBarButtonItems = [pullDownButton]
+        let menu: UIMenu = {
+            return UIMenu(title: "정렬", options: [], children: menuItems)
+        }()
+        
+        
+        let pullDownButton = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), menu: menu)
+        navigationItem.rightBarButtonItem = pullDownButton
     }
 }
 
@@ -114,7 +109,7 @@ extension ToDoListViewController : UITableViewDelegate, UITableViewDataSource {
            let indexPath = mainTableView.indexPath(for: cell){
             
             repository.updateComplete(dataList[indexPath.row])
-            mainTableView.reloadData()
+//            mainTableView.reloadData()
         }
     }
     
