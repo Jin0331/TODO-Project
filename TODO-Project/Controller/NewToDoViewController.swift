@@ -23,13 +23,13 @@ class NewToDoViewController: BaseViewController {
         
         view.endEditing(true)
     }
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         mainView.subItemView.forEach {
-            return $0.rightButton.addTarget(self, action: #selector(itemRightButtonClicked), for: .touchUpInside)
+            
+            return NewToDoViewEnum.addImage.index != $0.labelButton.tag ? $0.labelButton.addTarget(self, action: #selector(cellClicked), for: .touchUpInside) : $0.labelButton.addTarget(self, action: #selector(cellClickedImagePicker), for: .touchUpInside)
         }
         
         //MARK: - 저장 버튼 활성화, textfield에 data(>2)가 입력되었을 때 반영되도록.
@@ -76,8 +76,8 @@ class NewToDoViewController: BaseViewController {
         
     }
     
-    // subView objc func
-    @objc func itemRightButtonClicked(_ sender : UIButton) {
+    // subView objc func -- 같은 VC 사용
+    @objc func cellClicked(_ sender : UIButton) {
         
         print(#function)
         let eCase = NewToDoViewEnum(rawValue: sender.tag) // tag의 값이 불명확하므로, eCase는 option value가 됨
@@ -102,9 +102,13 @@ class NewToDoViewController: BaseViewController {
                 self.mainView.subItemView[eCase.index].subLabel.text = "\(value)"
             }
             navigationController?.pushViewController(vc, animated: true)
-        default :
-            print("아직 구현 안 됨")
+        case .addImage :
+            print("hi")
         }
+    }
+    
+    @objc func cellClickedImagePicker(_ sender : UIButton) {
+        print(#function)
     }
     
     @objc func saveButtonEnable(_ sender : UITextField) {

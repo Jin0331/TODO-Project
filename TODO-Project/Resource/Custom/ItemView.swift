@@ -21,15 +21,30 @@ class ItemView : BaseView {
         $0.textAlignment = .right
     }
     
-    let rightButton = UIButton().then {
-        $0.setImage(UIImage(systemName: "chevron.right"), for: .normal)
-        $0.tintColor = .systemGray2
+    let rightButtonImageView = UIImageView().then { _ in
+//        $0.image = UIImage(systemName: "chevron.right")
+//        $0.tintColor = .systemGray2
+    }
+    
+    let rightImageView = UIImageView().then {
+        $0.backgroundColor = .clear
+        $0.contentMode = .scaleToFill
+        $0.clipsToBounds = true
+        $0.layer.cornerRadius = 10
+    }
+    
+    let labelButton = UIButton().then {
+        $0.setTitle("", for: .normal)
+        $0.backgroundColor = .clear
+        $0.setTitleColor(.clear, for: .normal)
     }
     
     override func configureHierarchy() {
         addSubview(textLabel)
         addSubview(subLabel)
-        addSubview(rightButton)
+        addSubview(rightButtonImageView)
+        addSubview(rightImageView)
+        addSubview(labelButton)
     }
     
     override func configureLayout() {
@@ -41,14 +56,25 @@ class ItemView : BaseView {
         
         subLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.trailing.equalTo(rightButton.snp.leading)
-            make.width.equalTo(150)
+            make.leading.equalTo(textLabel.snp.trailing)
+            make.trailing.equalTo(rightButtonImageView.snp.leading)
         }
         
-        rightButton.snp.makeConstraints { make in
+        rightButtonImageView.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.trailing.equalToSuperview().inset(10)
-            make.height.width.equalTo(30)
+            make.height.width.equalTo(15)
+        }
+        
+        rightImageView.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.trailing.equalToSuperview().inset(10)
+            make.height.equalTo(40)
+            make.width.equalTo(60)
+        }
+        
+        labelButton.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
         
     }
