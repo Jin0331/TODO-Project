@@ -12,25 +12,22 @@ import RealmSwift
 
 //TODO: - View 없이 VC에 바로
 class ToDoListViewController: BaseViewController {
-
+    
     var navigationTitle : String?
     var repository = ToDoTableRepository()
-    var dataList : Results<ToDoTable>! {
-        didSet {
-            mainTableView.reloadData()
-        }
-    }
+    var dataList : Results<ToDoTable>!
+    var notificationToken: NotificationToken?
+    
     
     let mainTableView = UITableView(frame: .zero).then {
         $0.backgroundColor = .clear
     }
     
     lazy var menuItems: [UIAction] = {
-        return
-            ToDoTableRepository.sortedKey.allCases.map { item in
-                return UIAction(title: item.title, image: UIImage(systemName: item.sortedImage), handler: { _ in
-                    self.dataList = self.repository.fetchSort(item.rawValue)})
-            }
+        return ToDoTableRepository.sortedKey.allCases.map { item in
+            return UIAction(title: item.title, image: UIImage(systemName: item.sortedImage), handler: { _ in
+                self.dataList = self.repository.fetchSort(item.rawValue)})
+        }
     }()
     
     lazy var menu: UIMenu = {
@@ -39,7 +36,25 @@ class ToDoListViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        notificationToken = dataList.observe { changes in
+            switch changes {
+                
+            case .initial(let users):
+                print("Initial count: \(users.count)")
+                self.mainTableView.reloadData()
+                
+            case .update(let users, let deletions, let insertions, let modifications):
+                print("Update count: \(users.count)")
+                print("Delete count: \(deletions.count)")
+                print("Insert count: \(insertions.count)")
+                print("Modification count: \(modifications.count)")
+                self.mainTableView.reloadData()
+                
+            case .error(let error):
+                fatalError("\(error)")
+            }
+        }
     }
     
     override func configureHierarchy() {
@@ -64,15 +79,15 @@ class ToDoListViewController: BaseViewController {
         super.configureNavigation()
         
         navigationItem.title = navigationTitle
-
-//        let refreshButton = BlockBarButtonItem(image: UIImage(systemName: "arrow.clockwise"), style: .plain) {
-//            self.dataList = self.repository.fetchAll()
-////            self.mainTableView.reloadData()
-//        }
+        
+        //        let refreshButton = BlockBarButtonItem(image: UIImage(systemName: "arrow.clockwise"), style: .plain) {
+        //            self.dataList = self.repository.fetchAll()
+        ////            self.mainTableView.reloadData()
+        //        }
         
         let pullDownButton = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"),
-                                              menu: menu)
-//        navigationItem.rightBarButtonItems = [pullDownButton,refreshButton]
+                                             menu: menu)
+        //        navigationItem.rightBarButtonItems = [pullDownButton,refreshButton]
         navigationItem.rightBarButtonItems = [pullDownButton]
     }
 }
@@ -110,19 +125,19 @@ extension ToDoListViewController : UITableViewDelegate, UITableViewDataSource {
             print(self.dataList[indexPath.row])
             completionHandler(true)
         }
-
+        
         // weak self : 클로져 내부에서 self 를 사용할 때 strong reference cycle 예방
         let delete = UIContextualAction(style: .normal, title: "삭제") {action, view, completionHandler in
-
+            
             // 삭제 처리
             self.repository.removeItem(self.dataList[indexPath.row])
             tableView.deleteRows(at: [indexPath], with: .automatic)
             completionHandler(true)
         }
-
+        
         flag.backgroundColor = .orange
         delete.backgroundColor = .red
-
+        
         let config = UISwipeActionsConfiguration(actions: [delete,flag])
         config.performsFirstActionWithFullSwipe = false
         
