@@ -8,6 +8,9 @@
 import UIKit
 import RealmSwift
 
+//TODO: - 제네릭을 활용할 수 있는 방법? -> Column이 다르므로, 공통적인 사항은 제네릭 적용할 수 있을 듯
+//TODO: - Argument를 받을 수 있을 때는 쉽게 할 수 있지만, Void -> type 일경우에는... 
+
 final class ToDoTableRepository {
     
     private let realm = try! Realm()
@@ -40,7 +43,7 @@ final class ToDoTableRepository {
         print(realm.configuration.fileURL!)
     }
     
-    func createItem(_ item : ToDoTable) {
+    func createItem<T:Object>(_ item : T) {
         
         do {
             try realm.write {
@@ -143,7 +146,7 @@ final class ToDoTableRepository {
         }
     }
     
-    func removeItem(_ item : ToDoTable) {
+    func removeItem<T:Object>(_ item : T) {
         do {
             try realm.write {
                 realm.delete(item)

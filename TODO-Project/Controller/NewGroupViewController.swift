@@ -18,7 +18,7 @@ class NewGroupViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
+        
     }
     
     
@@ -89,17 +89,16 @@ extension NewGroupViewController : UICollectionViewDelegate, UICollectionViewDat
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: IconCollectionViewCell.identifier, for: indexPath) as! IconCollectionViewCell
-                
             
             cell.iconImageView.image = IconStyle.iconSystemImage[indexPath.item]
             
-                return cell
+            return cell
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print(#function, indexPath)
-
+        
         if collectionView == mainView.colorCollectionView {
             let cell = collectionView.cellForItem(at: indexPath) as! BaseCollectionViewCell
             mainView.updateUI(updateImage: nil, updateTintColor: cell.contentView.backgroundColor)
@@ -117,10 +116,10 @@ extension NewGroupViewController : UICollectionViewDelegate, UICollectionViewDat
         print(#function, indexPath)
         
         let cell = collectionView == mainView.colorCollectionView ? collectionView.cellForItem(at: indexPath) as! BaseCollectionViewCell : collectionView.cellForItem(at: indexPath) as! IconCollectionViewCell
-            cell.contentView.layer.borderColor = UIColor.clear.cgColor
-            cell.contentView.layer.borderWidth = 0
+        cell.contentView.layer.borderColor = UIColor.clear.cgColor
+        cell.contentView.layer.borderWidth = 0
         
-
+        
     }
     
 }
