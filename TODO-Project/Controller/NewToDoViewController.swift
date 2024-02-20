@@ -11,7 +11,7 @@ import RealmSwift
 class NewToDoViewController: BaseViewController {
     
     let mainView = NewToDoView()
-    let repository = ToDoTableRepository()
+    let repository = RealmRepository()
     var countUpdate : (() -> Void)?
     
     override func loadView() {
@@ -34,7 +34,7 @@ class NewToDoViewController: BaseViewController {
         
         //MARK: - 저장 버튼 활성화, textfield에 data(>2)가 입력되었을 때 반영되도록.
         mainView.titleTextField.becomeFirstResponder()
-        mainView.titleTextField.addTarget(self, action: #selector(saveButtonEnable), for: .editingDidBegin)
+        mainView.titleTextField.addTarget(self, action: #selector(saveButtonEnable), for: .editingDidEnd)
         
     }
     

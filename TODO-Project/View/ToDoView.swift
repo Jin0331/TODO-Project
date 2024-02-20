@@ -86,12 +86,23 @@ enum ToDoViewEnum {
 
 class ToDoView: BaseView {
 
+    let scrollView = UIScrollView().then {
+        $0.backgroundColor = .clear
+        $0.isScrollEnabled = true
+        $0.showsVerticalScrollIndicator = true
+    }
+    
+    let contentsView = UIView().then {
+        $0.backgroundColor = .clear
+    }
+    
     let titleLabel = UILabel().then {
-        $0.text = "전체"
-        $0.textColor = .systemGray
-        $0.font = .systemFont(ofSize: 40, weight: .bold)
+        $0.text = "나의 목록"
+        $0.textColor = .white
+        $0.font = .systemFont(ofSize: 20, weight: .bold)
     }
 
+    // StackView 관련
     let outerStackView = UIStackView().then {
         $0.distribution = .fillEqually
         $0.axis = .horizontal
@@ -126,9 +137,20 @@ class ToDoView: BaseView {
         return v
     }
     
+    // Table View
+    let groupTableView = UITableView(frame: .zero, style: .insetGrouped).then {
+        $0.register(CommonTableViewCell.self, forCellReuseIdentifier: CommonTableViewCell.identifier)
+        $0.rowHeight = 70
+        $0.backgroundColor = .clear
+        
+    }
+    
     override func configureHierarchy() {
         
-        [titleLabel, outerStackView].forEach { return addSubview($0)}
+        addSubview(scrollView)
+        scrollView.addSubview(contentsView)
+        
+        [titleLabel, outerStackView, groupTableView].forEach { return contentsView.addSubview($0)}
         
         [leftStackView, rightStackView].forEach { return outerStackView.addArrangedSubview($0)}
         
@@ -138,16 +160,33 @@ class ToDoView: BaseView {
     }
     
     override func configureLayout() {
-        titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(safeAreaLayoutGuide).inset(10)
-            make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(10)
+        scrollView.snp.makeConstraints { make in
+            make.edges.equalTo(safeAreaInsets)
+        }
+        
+        contentsView.snp.makeConstraints { make in
+            make.width.equalToSuperview()
+            make.top.bottom.equalToSuperview()
         }
         
         outerStackView.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(20)
-            make.horizontalEdges.equalTo(titleLabel)
+            make.top.equalToSuperview().inset(10)
+            make.horizontalEdges.equalToSuperview().inset(20)
             make.height.equalTo(300)
         }
+        
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalTo(outerStackView.snp.bottom).offset(20)
+            make.horizontalEdges.equalToSuperview().inset(20)
+        }
+        
+        groupTableView.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(10)
+            make.horizontalEdges.equalTo(contentsView)
+            make.height.equalTo(400)
+            make.bottom.equalToSuperview().inset(15)
+        }
+        
     }
     
     override func configureView() {

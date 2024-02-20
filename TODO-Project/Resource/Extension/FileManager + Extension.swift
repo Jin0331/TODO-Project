@@ -43,4 +43,26 @@ extension UIViewController {
             print(error)
         }
     }
+    
+    //MARK: - PK Folder는 살려두기???
+    func removeImageFromDocument(pk: String) {
+        
+        guard let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
+        
+        let dirURL = documentDirectory.appendingPathComponent("\(pk)")
+        let fileURL = documentDirectory.appendingPathComponent("\(pk)/\(pk)_image.jpg")
+        
+        // file remove
+        if FileManager.default.fileExists(atPath: fileURL.path()) {
+            
+            do {
+                try FileManager.default.removeItem(atPath: fileURL.path())
+            } catch {
+                print("file remove error")
+            }
+            
+        } else {
+            print("file no exist, remove error")
+        }
+    }
 }

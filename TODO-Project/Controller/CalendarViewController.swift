@@ -15,7 +15,7 @@ class CalendarViewController: BaseViewController {
 
     var notificationToken: NotificationToken?
     var dataList : Results<ToDoTable>!
-    var repository = ToDoTableRepository()
+    var repository = RealmRepository()
     let format = DateFormatter().then {
         $0.dateFormat = "yyyy년 MM월 dd일 hh시"
     }
