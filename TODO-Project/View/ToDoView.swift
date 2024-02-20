@@ -86,6 +86,16 @@ enum ToDoViewEnum {
 
 class ToDoView: BaseView {
 
+    let scrollView = UIScrollView().then {
+        $0.backgroundColor = .clear
+        $0.isScrollEnabled = true
+        $0.showsVerticalScrollIndicator = true
+    }
+    
+    let contentsView = UIView().then {
+        $0.backgroundColor = .clear
+    }
+    
     let titleLabel = UILabel().then {
         $0.text = "전체"
         $0.textColor = .systemGray
@@ -128,7 +138,10 @@ class ToDoView: BaseView {
     
     override func configureHierarchy() {
         
-        [titleLabel, outerStackView].forEach { return addSubview($0)}
+        addSubview(scrollView)
+        scrollView.addSubview(contentsView)
+        
+        [titleLabel, outerStackView].forEach { return contentsView.addSubview($0)}
         
         [leftStackView, rightStackView].forEach { return outerStackView.addArrangedSubview($0)}
         
@@ -138,15 +151,25 @@ class ToDoView: BaseView {
     }
     
     override func configureLayout() {
+        scrollView.snp.makeConstraints { make in
+            make.edges.equalTo(safeAreaInsets)
+        }
+        
+        contentsView.snp.makeConstraints { make in
+            make.width.equalToSuperview()
+            make.top.bottom.equalToSuperview()
+        }
+        
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(safeAreaLayoutGuide).inset(10)
-            make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(10)
+            make.top.equalToSuperview().inset(10)
+            make.horizontalEdges.equalToSuperview().inset(10)
         }
         
         outerStackView.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(20)
             make.horizontalEdges.equalTo(titleLabel)
             make.height.equalTo(300)
+            make.bottom.equalToSuperview().inset(15)
         }
     }
     
