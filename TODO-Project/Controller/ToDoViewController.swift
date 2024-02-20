@@ -10,7 +10,7 @@ import UIKit
 class ToDoViewController: BaseViewController {
     
     let mainView = ToDoView()
-    let repository = ToDoTableRepository()
+    let repository = RealmRepository()
     
     override func loadView() {
         self.view = mainView

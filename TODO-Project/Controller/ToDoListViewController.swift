@@ -14,7 +14,7 @@ import RealmSwift
 class ToDoListViewController: BaseViewController {
     
     var navigationTitle : String?
-    var repository = ToDoTableRepository()
+    var repository = RealmRepository()
     var dataList : Results<ToDoTable>!
     var notificationToken: NotificationToken?
     
@@ -70,7 +70,7 @@ class ToDoListViewController: BaseViewController {
         navigationItem.title = navigationTitle
         
         let menuItems: [UIAction] = {
-            return ToDoTableRepository.sortedKey.allCases.map { item in
+            return RealmRepository.sortedKey.allCases.map { item in
                 return UIAction(title: item.title, image: UIImage(systemName: item.sortedImage), handler: { _ in
                     self.dataList = self.repository.fetchSort(dataList: self.dataList, sortKey: item.rawValue)
                     self.mainTableView.reloadData()

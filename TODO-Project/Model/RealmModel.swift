@@ -12,18 +12,23 @@ class TaskGroup : Object {
     @Persisted(primaryKey: true) var _id : ObjectId
     @Persisted var groupName : String
     @Persisted var type : String? //TODO: - 목록 유형은 추후에...
+    @Persisted var icon : Icon?
     @Persisted var regDate : Date
     @Persisted var todo : List<ToDoTable>
     
-    convenience init(_id: ObjectId, groupName: String, type: String, todo: List<ToDoTable>) {
+    convenience init(groupName: String) {
         self.init()
         
         self.groupName = groupName
-        self.type = type
         self.regDate = Date()
-        self.todo = todo
     }
 }
+
+class Icon : EmbeddedObject {
+    @Persisted var colorHex : String // hex code로 저장
+    @Persisted var systemIcon : String // system image 이름
+}
+
 
 
 class ToDoTable : Object {

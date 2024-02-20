@@ -6,10 +6,13 @@
 //
 
 import UIKit
+import RealmSwift
 
 class NewGroupViewController: BaseViewController {
     
+    let repository = RealmRepository()
     let mainView = NewGroup()
+    var isHomeSelected = true
     
     override func loadView() {
         self.view = mainView
@@ -18,9 +21,10 @@ class NewGroupViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        mainView.groupNameTextfield.becomeFirstResponder()
+        mainView.groupNameTextfield.addTarget(self, action: #selector(saveButtonEnable), for: .editingDidEnd)
         
     }
-    
     
     override func configureView() {
         mainView.colorCollectionView.delegate = self
@@ -28,6 +32,11 @@ class NewGroupViewController: BaseViewController {
         mainView.iconCollectionView.delegate = self
         mainView.iconCollectionView.dataSource = self
     }
+    
+//    override func viewWillAppear(_ animated: Bool) {
+//        let selectedIndexPath = IndexPath(item: 0, section: 0)
+//        mainView.colorCollectionView.selectItem(at: selectedIndexPath, animated: false, scrollPosition: .top)
+//    }
     
     override func configureNavigation() {
         super.configureNavigation()
@@ -48,28 +57,31 @@ class NewGroupViewController: BaseViewController {
     
     @objc func saveButton(_ sender : UIButton) {
         
-        //        let item = ToDoTable(title: mainView.titleTextField.text!,
-        //                             memo: mainView.memoTextView.text,
-        //                             endDate: mainView.subItemView[NewToDoViewEnum.endTime.index].subLabel.text?.toDate(dateFormat: "yy.MM.dd H:m") ?? nil,
-        //                             tag: mainView.subItemView[NewToDoViewEnum.tag.index].subLabel.text,
-        //                             priority: mainView.subItemView[NewToDoViewEnum.priority.index].subLabel.text,
-        //                             flag : false,
-        //                             completed: false
-        //        )
-        //
-        //        repository.createItem(item)
-        //
-        //        // PK별 이미지 추가
-        //        if let image = mainView.subItemView[NewToDoViewEnum.addImage.index].rightImageView.image {
-        //            saveImageToDocument(image: image, pk: "\(item._id)")
-        //        }
-        //
-        //        repository.realmLocation()
-        //
-        //        countUpdate?() // 이전 화면 함수 호출
+        let item = TaskGroup(groupName: mainView.groupNameTextfield.text!)
+        
+        repository.createItem(item)
+        
+        // PK별 이미지 추가, tintcolor 적용 아ㅓㄴ 됨
+        if let image = mainView.iconImage.image {
+            saveImageToDocument(image: image, pk: "\(item._id)")
+        }
+        
+        repository.realmLocation()
         
         dismiss(animated: true)
     }
+    
+    @objc func saveButtonEnable(_ sender : UITextField) {
+        
+        print(#function)
+        if let title = sender.text, title.count > 1 {
+            navigationItem.rightBarButtonItem?.isEnabled = true
+            
+        } else {
+            navigationItem.rightBarButtonItem?.isEnabled = false
+        }
+    }
+    
 }
 
 
@@ -79,6 +91,7 @@ extension NewGroupViewController : UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         
         if collectionView == mainView.colorCollectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BaseCollectionViewCell.identifier, for: indexPath)
@@ -118,8 +131,6 @@ extension NewGroupViewController : UICollectionViewDelegate, UICollectionViewDat
         let cell = collectionView == mainView.colorCollectionView ? collectionView.cellForItem(at: indexPath) as! BaseCollectionViewCell : collectionView.cellForItem(at: indexPath) as! IconCollectionViewCell
         cell.contentView.layer.borderColor = UIColor.clear.cgColor
         cell.contentView.layer.borderWidth = 0
-        
-        
     }
     
 }

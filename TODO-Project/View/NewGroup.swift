@@ -177,6 +177,10 @@ class NewGroup : BaseView {
         if let updateTintColor {
             iconImage.tintColor = updateTintColor
             groupNameTextfield.textColor = updateTintColor
+            
+            print(updateTintColor.toHexString())
+            
+            groupNameTextfield.textColor = UIColor(hex: updateTintColor.toHexString())
         }
     }
 }
