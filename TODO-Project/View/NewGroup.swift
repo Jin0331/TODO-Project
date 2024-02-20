@@ -13,7 +13,9 @@ class NewGroup : BaseView {
     
     
     let scrollView = UIScrollView().then {
-        $0.backgroundColor = .red
+        $0.backgroundColor = .clear
+        $0.isScrollEnabled = true
+        $0.showsVerticalScrollIndicator = true
     }
     
     let contentsView = UIView().then {
@@ -58,6 +60,7 @@ class NewGroup : BaseView {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
         collectionView.backgroundColor = .clear
+        collectionView.backgroundColor = .red
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "Systemcell")
         
         return collectionView
@@ -74,7 +77,7 @@ class NewGroup : BaseView {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
-        collectionView.backgroundColor = .clear
+        collectionView.backgroundColor = .red
         collectionView.clipsToBounds = true
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "Systemcell")
         
@@ -97,18 +100,17 @@ class NewGroup : BaseView {
     
     override func configureLayout() {
         scrollView.snp.makeConstraints { make in
-            make.edges.equalTo(safeAreaLayoutGuide)
+            make.edges.equalTo(safeAreaInsets)
         }
         
         contentsView.snp.makeConstraints { make in
-            make.edges.equalTo(scrollView.contentLayoutGuide)
-            make.height.greaterThanOrEqualTo(self.snp.height).priority(.low)
-            make.width.equalTo(scrollView.snp.width)
+            make.width.equalToSuperview()
+            make.top.bottom.equalToSuperview()
         }
 
         topView.snp.makeConstraints { make in
             make.top.horizontalEdges.equalToSuperview().inset(15)
-            make.height.equalTo(180)
+            make.height.equalTo(200)
         }
         
         iconImage.snp.makeConstraints { make in
@@ -125,7 +127,22 @@ class NewGroup : BaseView {
         colorView.snp.makeConstraints { make in
             make.top.equalTo(topView.snp.bottom).offset(15)
             make.horizontalEdges.equalTo(topView)
-            make.height.equalTo(800)
+            make.height.equalTo(200)
+        }
+        
+        colorCollectionView.snp.makeConstraints { make in
+            make.edges.equalToSuperview().inset(15)
+        }
+        
+        iconView.snp.makeConstraints { make in
+            make.top.equalTo(colorView.snp.bottom).offset(15)
+            make.horizontalEdges.equalTo(topView)
+            make.height.equalTo(400)
+            make.bottom.equalToSuperview().inset(15) //여기가 핵심이군.. 마지막 View는 Bottom을 확실히 해줘야 한다.
+        }
+        
+        iconCollectionView.snp.makeConstraints { make in
+            make.edges.equalToSuperview().inset(15)
         }
     }
     

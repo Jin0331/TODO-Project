@@ -18,7 +18,6 @@ class NewGroupViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        mainView.scrollView.updateContentSize()
     }
     
     
