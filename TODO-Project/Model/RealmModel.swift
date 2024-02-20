@@ -11,7 +11,7 @@ import RealmSwift
 class TaskGroup : Object {
     @Persisted(primaryKey: true) var _id : ObjectId
     @Persisted var groupName : String
-    @Persisted var type : String
+    @Persisted var type : String? //TODO: - 목록 유형은 추후에...
     @Persisted var regDate : Date
     @Persisted var todo : List<ToDoTable>
     

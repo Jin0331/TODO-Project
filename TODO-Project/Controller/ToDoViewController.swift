@@ -121,7 +121,11 @@ class ToDoViewController: BaseViewController {
     
     //MARK: - 목록추가는 나중에 구현하는 듯???
     @objc func rightToolbarItemClicked(_ sender : UIButton) {
-        print(#function)
+        
+        let vc =  NewGroupViewController()
+
+        present(UINavigationController(rootViewController: vc), animated: true)
+        
     }
     
     func countUpdate() {
