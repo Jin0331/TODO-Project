@@ -12,7 +12,9 @@ class NewGroupViewController: BaseViewController {
     
     let repository = RealmRepository()
     let mainView = NewGroup()
-    var isHomeSelected = true
+    
+    var tintColor : String?
+    var systemIcon : String?
     
     override func loadView() {
         self.view = mainView
@@ -57,15 +59,14 @@ class NewGroupViewController: BaseViewController {
     
     @objc func saveButton(_ sender : UIButton) {
         
-        let item = TaskGroup(groupName: mainView.groupNameTextfield.text!)
+        // Icon property 저장 (embedded
+        let icon = Icon()
+        icon.colorHex = tintColor!
+        icon.systemIcon = systemIcon!
+        
+        let item = TaskGroup(groupName: mainView.groupNameTextfield.text!, icon: icon)
         
         repository.createItem(item)
-        
-        // PK별 이미지 추가, tintcolor 적용 아ㅓㄴ 됨
-        if let image = mainView.iconImage.image {
-            saveImageToDocument(image: image, pk: "\(item._id)")
-        }
-        
         repository.realmLocation()
         
         dismiss(animated: true)
@@ -103,7 +104,7 @@ extension NewGroupViewController : UICollectionViewDelegate, UICollectionViewDat
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: IconCollectionViewCell.identifier, for: indexPath) as! IconCollectionViewCell
             
-            cell.iconImageView.image = IconStyle.iconSystemImage[indexPath.item]
+            cell.iconImageView.image = UIImage(systemName: IconStyle.iconSystemImage[indexPath.item])
             
             return cell
         }
@@ -115,11 +116,15 @@ extension NewGroupViewController : UICollectionViewDelegate, UICollectionViewDat
         if collectionView == mainView.colorCollectionView {
             let cell = collectionView.cellForItem(at: indexPath) as! BaseCollectionViewCell
             mainView.updateUI(updateImage: nil, updateTintColor: cell.contentView.backgroundColor)
+            tintColor = IconStyle.iconTintColor[indexPath.item].toHexString()
+            
             cell.contentView.layer.borderColor = UIColor.systemGray6.cgColor
             cell.contentView.layer.borderWidth = 2
         } else {
             let cell = collectionView.cellForItem(at: indexPath) as! IconCollectionViewCell
             mainView.updateUI(updateImage: cell.iconImageView.image, updateTintColor: nil)
+            systemIcon = IconStyle.iconSystemImage[indexPath.item]
+            
             cell.contentView.layer.borderColor = UIColor.systemGray6.cgColor
             cell.contentView.layer.borderWidth = 2
         }

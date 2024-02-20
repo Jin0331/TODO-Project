@@ -318,7 +318,7 @@ enum IconStyle {
                                   "47.circle",
                                   "48.circle",
                                   "49.circle",
-                                  "50.circle"].map{ return UIImage(systemName: $0)}
+                                  "50.circle"].map{ return $0 }
     static let iconTintColor = [UIColor.systemRed,
                                 UIColor.systemGreen,
                                 UIColor.systemBrown,
