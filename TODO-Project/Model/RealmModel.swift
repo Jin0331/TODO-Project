@@ -8,6 +8,24 @@
 import Foundation
 import RealmSwift
 
+class TaskGroup : Object {
+    @Persisted(primaryKey: true) var _id : ObjectId
+    @Persisted var groupName : String
+    @Persisted var type : String
+    @Persisted var regDate : Date
+    @Persisted var todo : List<ToDoTable>
+    
+    convenience init(_id: ObjectId, groupName: String, type: String, todo: List<ToDoTable>) {
+        self.init()
+        
+        self.groupName = groupName
+        self.type = type
+        self.regDate = Date()
+        self.todo = todo
+    }
+}
+
+
 class ToDoTable : Object {
     @Persisted(primaryKey: true) var _id : ObjectId
     @Persisted var title : String // 제목
@@ -15,8 +33,11 @@ class ToDoTable : Object {
     @Persisted var endDate : Date?
     @Persisted var tag : String?
     @Persisted var priority : String?
+    @Persisted var regDate : Date
     @Persisted var flag : Bool
     @Persisted var completed : Bool
+    
+    @Persisted(originProperty: "todo") var taskGroup : LinkingObjects<TaskGroup>
     
     convenience init(title: String, memo: String? = nil, endDate: Date?,
                      tag: String?, priority: String?, flag : Bool, completed : Bool) {
@@ -27,17 +48,11 @@ class ToDoTable : Object {
         self.endDate = endDate
         self.tag = tag
         self.priority = priority
+        self.regDate = Date()
         self.flag = flag
         self.completed = completed
     }
-    
-//    var endDateFormatting : String {
-//        get {
-//            guard let endDate = endDate else { return ""}
-//            return endDate.toString(dateFormat: "yy.M.d")
-//        }
-//    }
-    
+
     var endDateFiltered : String? {
         get {
             return endDate?.toString(dateFormat: "yy/MM/dd")
