@@ -6,11 +6,13 @@
 //
 
 import UIKit
+import RealmSwift
 
 class ToDoViewController: BaseViewController {
     
     let mainView = ToDoView()
     let repository = RealmRepository()
+    var groupList : Results<TaskGroup>!
     
     override func loadView() {
         self.view = mainView
@@ -25,6 +27,7 @@ class ToDoViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // stackView
         mainView.leftSubView.forEach {
             return $0.transitionButton.addTarget(self, action: #selector(transitionButtonClicked), for: .touchUpInside)
         }
@@ -32,6 +35,14 @@ class ToDoViewController: BaseViewController {
         mainView.rightSubView.forEach {
             return $0.transitionButton.addTarget(self, action: #selector(transitionButtonClicked), for: .touchUpInside)
         }
+        
+        // tableView
+        groupList = repository.fe
+    }
+    
+    override func configureView() {
+        mainView.groupTableView.delegate = self
+        mainView.groupTableView.dataSource = self
     }
     
     override func configureNavigation() {
@@ -115,8 +126,6 @@ class ToDoViewController: BaseViewController {
             
             navigationController?.pushViewController(vc, animated: true)
         }
-        
-        
     }
     
     //MARK: - 목록추가는 나중에 구현하는 듯???
@@ -137,9 +146,28 @@ class ToDoViewController: BaseViewController {
         
         mainView.rightSubView[0].countLabel.text = String(repository.fetchTomorrow().count) // 예정
         mainView.rightSubView[1].countLabel.text = String(repository.fetchFlag().count) // 깃발
-        
+    }
+}
+
+extension ToDoViewController : UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return groupList.count
     }
     
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.identifier, for: indexPath)
+        cell.backgroundColor = .darkGray
+        cell.textLabel?.textColor = .white
+        
+        cell.textLabel?.text = "hi"
+        
+        return cell
+    }
     
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? { UIView() }
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? { UIView() }
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat { .leastNormalMagnitude }
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat { .leastNormalMagnitude }
 }
 

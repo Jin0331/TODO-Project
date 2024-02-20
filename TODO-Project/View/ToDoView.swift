@@ -97,11 +97,12 @@ class ToDoView: BaseView {
     }
     
     let titleLabel = UILabel().then {
-        $0.text = "전체"
-        $0.textColor = .systemGray
-        $0.font = .systemFont(ofSize: 40, weight: .bold)
+        $0.text = "나의 목록"
+        $0.textColor = .white
+        $0.font = .systemFont(ofSize: 20, weight: .bold)
     }
 
+    // StackView 관련
     let outerStackView = UIStackView().then {
         $0.distribution = .fillEqually
         $0.axis = .horizontal
@@ -136,12 +137,20 @@ class ToDoView: BaseView {
         return v
     }
     
+    // Table View
+    let groupTableView = UITableView(frame: .zero, style: .insetGrouped).then {
+        $0.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.identifier)
+        $0.rowHeight = 50
+        $0.backgroundColor = .clear
+        
+    }
+    
     override func configureHierarchy() {
         
         addSubview(scrollView)
         scrollView.addSubview(contentsView)
         
-        [titleLabel, outerStackView].forEach { return contentsView.addSubview($0)}
+        [titleLabel, outerStackView, groupTableView].forEach { return contentsView.addSubview($0)}
         
         [leftStackView, rightStackView].forEach { return outerStackView.addArrangedSubview($0)}
         
@@ -160,17 +169,24 @@ class ToDoView: BaseView {
             make.top.bottom.equalToSuperview()
         }
         
-        titleLabel.snp.makeConstraints { make in
+        outerStackView.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(10)
-            make.horizontalEdges.equalToSuperview().inset(10)
+            make.horizontalEdges.equalToSuperview().inset(20)
+            make.height.equalTo(300)
         }
         
-        outerStackView.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(20)
-            make.horizontalEdges.equalTo(titleLabel)
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalTo(outerStackView.snp.bottom).offset(20)
+            make.horizontalEdges.equalToSuperview().inset(20)
+        }
+        
+        groupTableView.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(10)
+            make.horizontalEdges.equalTo(contentsView)
             make.height.equalTo(300)
             make.bottom.equalToSuperview().inset(15)
         }
+        
     }
     
     override func configureView() {
