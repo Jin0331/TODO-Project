@@ -139,8 +139,8 @@ class ToDoView: BaseView {
     
     // Table View
     let groupTableView = UITableView(frame: .zero, style: .insetGrouped).then {
-        $0.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.identifier)
-        $0.rowHeight = 50
+        $0.register(CommonTableViewCell.self, forCellReuseIdentifier: CommonTableViewCell.identifier)
+        $0.rowHeight = 70
         $0.backgroundColor = .clear
         
     }
@@ -183,7 +183,7 @@ class ToDoView: BaseView {
         groupTableView.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(10)
             make.horizontalEdges.equalTo(contentsView)
-            make.height.equalTo(300)
+            make.height.equalTo(400)
             make.bottom.equalToSuperview().inset(15)
         }
         

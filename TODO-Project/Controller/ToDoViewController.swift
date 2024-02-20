@@ -158,17 +158,16 @@ extension ToDoViewController : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.identifier, for: indexPath)
-        cell.backgroundColor = .darkGray
-        cell.selectionStyle = .none
+        let cell = tableView.dequeueReusableCell(withIdentifier: CommonTableViewCell.identifier, for: indexPath) as! CommonTableViewCell
+
+        let row = groupList[indexPath.row]
         
-        cell.textLabel?.textColor = .white
-        
-        cell.textLabel?.text = "hi"
+        cell.receiveData(data: row)
         
         return cell
     }
     
+    // insetgroup 여백관련
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? { UIView() }
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? { UIView() }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat { .leastNormalMagnitude }

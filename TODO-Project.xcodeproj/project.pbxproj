@@ -18,11 +18,11 @@
 		DB2199342B7C9989009B2AAC /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = DB2199332B7C9989009B2AAC /* Then */; };
 		DB2199362B7C99A2009B2AAC /* ToDoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2199352B7C99A2009B2AAC /* ToDoView.swift */; };
 		DB27BA042B84D67A003198FF /* UIScrollView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB27BA032B84D67A003198FF /* UIScrollView + Extension.swift */; };
-		DB27BA062B84E003003198FF /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB27BA052B84E003003198FF /* test.swift */; };
 		DB27BA082B84E1CA003198FF /* CommonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB27BA072B84E1CA003198FF /* CommonCollectionViewCell.swift */; };
 		DB27BA0A2B84E1E2003198FF /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB27BA092B84E1E2003198FF /* BaseCollectionViewCell.swift */; };
 		DB27BA0C2B84EDBF003198FF /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB27BA0B2B84EDBF003198FF /* Icon.swift */; };
 		DB27BA0E2B850852003198FF /* UIColor + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB27BA0D2B850852003198FF /* UIColor + Extension.swift */; };
+		DB27BA122B851E69003198FF /* CommonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB27BA112B851E69003198FF /* CommonTableViewCell.swift */; };
 		DB336FAA2B84C56C008A9B43 /* NewGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB336FA92B84C56C008A9B43 /* NewGroupViewController.swift */; };
 		DB336FAC2B84C6CE008A9B43 /* NewGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB336FAB2B84C6CE008A9B43 /* NewGroup.swift */; };
 		DB7C10922B7E368C0001B149 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = DB7C10912B7E368C0001B149 /* Realm */; };
@@ -61,11 +61,11 @@
 		DB21992D2B7C98FE009B2AAC /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		DB2199352B7C99A2009B2AAC /* ToDoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoView.swift; sourceTree = "<group>"; };
 		DB27BA032B84D67A003198FF /* UIScrollView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView + Extension.swift"; sourceTree = "<group>"; };
-		DB27BA052B84E003003198FF /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
 		DB27BA072B84E1CA003198FF /* CommonCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonCollectionViewCell.swift; sourceTree = "<group>"; };
 		DB27BA092B84E1E2003198FF /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
 		DB27BA0B2B84EDBF003198FF /* Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
 		DB27BA0D2B850852003198FF /* UIColor + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + Extension.swift"; sourceTree = "<group>"; };
+		DB27BA112B851E69003198FF /* CommonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonTableViewCell.swift; sourceTree = "<group>"; };
 		DB336FA92B84C56C008A9B43 /* NewGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGroupViewController.swift; sourceTree = "<group>"; };
 		DB336FAB2B84C6CE008A9B43 /* NewGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGroup.swift; sourceTree = "<group>"; };
 		DB7C10952B7E36C70001B149 /* RealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
@@ -159,7 +159,6 @@
 				DB7C10B12B8232050001B149 /* DetailToDoViewController.swift */,
 				DB7C10B82B838BFE0001B149 /* CalendarViewController.swift */,
 				DB336FA92B84C56C008A9B43 /* NewGroupViewController.swift */,
-				DB27BA052B84E003003198FF /* test.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -211,6 +210,7 @@
 			children = (
 				DB7C10AD2B81BFAF0001B149 /* NewToDoListTableViewCell.swift */,
 				DB27BA072B84E1CA003198FF /* CommonCollectionViewCell.swift */,
+				DB27BA112B851E69003198FF /* CommonTableViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -320,6 +320,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB27BA122B851E69003198FF /* CommonTableViewCell.swift in Sources */,
 				DB7C10B92B838BFE0001B149 /* CalendarViewController.swift in Sources */,
 				DB7C10A52B7E75350001B149 /* BlockBarButtonItem.swift in Sources */,
 				DBF3ABCE2B7CB908001ABADF /* DateViewController.swift in Sources */,
@@ -334,7 +335,6 @@
 				DB336FAA2B84C56C008A9B43 /* NewGroupViewController.swift in Sources */,
 				DB7C10962B7E36C70001B149 /* RealmModel.swift in Sources */,
 				DB7C109E2B7E5C740001B149 /* ToDoListViewController.swift in Sources */,
-				DB27BA062B84E003003198FF /* test.swift in Sources */,
 				DB27BA0C2B84EDBF003198FF /* Icon.swift in Sources */,
 				DBF3ABCC2B7CB017001ABADF /* ItemView.swift in Sources */,
 				DB336FAC2B84C6CE008A9B43 /* NewGroup.swift in Sources */,
