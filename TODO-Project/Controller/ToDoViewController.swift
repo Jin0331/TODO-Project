@@ -167,6 +167,18 @@ extension ToDoViewController : UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let vc = ToDoListViewController() // 전환되는 vc
+        vc.superDataList = groupList[indexPath.row]
+        
+        navigationController?.pushViewController(vc, animated: true)
+        
+        
+    }
+    
+    
+    
     // insetgroup 여백관련
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? { UIView() }
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? { UIView() }

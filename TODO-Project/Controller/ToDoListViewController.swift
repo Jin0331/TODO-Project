@@ -16,6 +16,7 @@ class ToDoListViewController: BaseViewController {
     var navigationTitle : String?
     var repository = RealmRepository()
     var dataList : Results<ToDoTable>!
+    var superDataList : TaskGroup!
     var notificationToken: NotificationToken?
     
     
@@ -25,6 +26,13 @@ class ToDoListViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let superDataList {
+            dataList = repository.fetchAll() // superDataList 화면에서 호출되는 경우, 할일 목록 전체 들고오기?
+            
+            print(superDataList.todo)
+        }
+        
         
         notificationToken = dataList.observe { changes in
             switch changes {
@@ -104,15 +112,23 @@ extension ToDoListViewController : UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    @objc func completeButtonClicked(_ sender : UIButton){
-        if let cell = sender.superview?.superview as? NewToDoListTableViewCell, // superview를 이용하여
-           let indexPath = mainTableView.indexPath(for: cell){
-            
-            repository.updateComplete(dataList[indexPath.row])
-//            mainTableView.reloadData()
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let row = dataList[indexPath.row]
+        let vc = DetailToDoViewController()
+        
+        //TODO: - vc.dataList는 Result타입이 아닌, ToDoTable
+        
+        vc.dataList = row
+        vc.tableViewReload = {
+            self.mainTableView.reloadData()
         }
+        
+        present(UINavigationController(rootViewController: vc), animated: true)
     }
     
+    
+    //MARK: - swife
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let flag = UIContextualAction(style: .normal, title: "깃발") {action, view, completionHandler in
             
@@ -139,19 +155,12 @@ extension ToDoListViewController : UITableViewDelegate, UITableViewDataSource {
         return config
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        let row = dataList[indexPath.row]
-        let vc = DetailToDoViewController()
-        
-        //TODO: - vc.dataList는 Result타입이 아닌, ToDoTable
-        
-        vc.dataList = row
-        vc.tableViewReload = {
-            self.mainTableView.reloadData()
+    @objc func completeButtonClicked(_ sender : UIButton){
+        if let cell = sender.superview?.superview as? NewToDoListTableViewCell, // superview를 이용하여
+           let indexPath = mainTableView.indexPath(for: cell){
+            
+            repository.updateComplete(dataList[indexPath.row])
         }
-        
-        present(UINavigationController(rootViewController: vc), animated: true)
     }
     
 }
