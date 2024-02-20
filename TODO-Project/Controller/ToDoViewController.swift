@@ -78,47 +78,42 @@ class ToDoViewController: BaseViewController {
     }
     
     @objc func transitionButtonClicked(_ sender : UIButton) {
-                
+        
         guard let superViewName = sender.superview?.layer.name else { return }
         guard let eCaseRawValue = sender.layer.name else { return }
+        let vc = ToDoListViewController() // 전환되는 vc
         
         if superViewName == "left" {
-            switch ToDoViewEnum.leftStack(rawValue: eCaseRawValue) {
+            
+            guard let eCaseLeftStack = ToDoViewEnum.leftStack(rawValue: eCaseRawValue) else { print("leftStacError");return }
+            
+            vc.navigationTitle = eCaseLeftStack.title
+            
+            switch eCaseLeftStack {
             case .all :
-                let vc = ToDoListViewController()
-                vc.navigationTitle = "전체"
                 vc.dataList = repository.fetchAll()
-                navigationController?.pushViewController(vc, animated: true)
-                
             case .completed :
-                let vc = ToDoListViewController()
-                vc.navigationTitle = "완료"
                 vc.dataList = repository.fetchComplete()
-                navigationController?.pushViewController(vc, animated: true)
             case .today :
-                let vc = ToDoListViewController()
-                vc.navigationTitle = "오늘"
                 vc.dataList = repository.fetchToday()
-                navigationController?.pushViewController(vc, animated: true)
-            default :
-                print("error")
             }
+            
+            navigationController?.pushViewController(vc, animated: true)
+            
         } else if superViewName == "right" {
-            switch ToDoViewEnum.rightStack(rawValue: eCaseRawValue) {
+            
+            guard let eCaseRightStack = ToDoViewEnum.rightStack(rawValue: eCaseRawValue) else { print("rightStacError");return }
+            
+            vc.navigationTitle = eCaseRightStack.title
+            
+            switch eCaseRightStack {
             case .plan :
-                let vc = ToDoListViewController()
-                vc.navigationTitle = "예정"
                 vc.dataList = repository.fetchTomorrow()
-                navigationController?.pushViewController(vc, animated: true)
             case .flag :
-                let vc = ToDoListViewController()
-                vc.navigationTitle = "깃발"
                 vc.dataList = repository.fetchFlag()
-                navigationController?.pushViewController(vc, animated: true)
-            default :
-                print("error")
-                
             }
+            
+            navigationController?.pushViewController(vc, animated: true)
         }
         
         
@@ -131,6 +126,7 @@ class ToDoViewController: BaseViewController {
     
     func countUpdate() {
         //TODO: - Date filter 방법 찾아야됨.
+        //TODO: - 여기 리팩토링은 어케????
         mainView.leftSubView[0].countLabel.text = String(repository.fetchToday().count) // 오늘
         mainView.leftSubView[1].countLabel.text = String(repository.fetchAll().count) // 전체
         mainView.leftSubView[2].countLabel.text = String(repository.fetchComplete().count) // 완료
