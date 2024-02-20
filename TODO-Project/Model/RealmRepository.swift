@@ -65,6 +65,12 @@ final class RealmRepository {
             print(error)
         }
     }
+    //MARK: - GroupTask Table 관련
+    func fetch() -> Results<TaskGroup> {
+        
+        return realm.objects(TaskGroup.self)
+        
+    }
     
     //MARK: - ToDo Table 관련
     func fetch() -> Results<ToDoTable> {

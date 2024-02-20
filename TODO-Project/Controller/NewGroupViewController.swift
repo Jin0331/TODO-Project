@@ -15,6 +15,7 @@ class NewGroupViewController: BaseViewController {
     
     var tintColor : String?
     var systemIcon : String?
+    var uiUpdate : (() -> Void)?
     
     override func loadView() {
         self.view = mainView
@@ -68,6 +69,8 @@ class NewGroupViewController: BaseViewController {
         
         repository.createItem(item)
         repository.realmLocation()
+        
+        uiUpdate?()
         
         dismiss(animated: true)
     }

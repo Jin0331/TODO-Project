@@ -37,7 +37,7 @@ class ToDoViewController: BaseViewController {
         }
         
         // tableView
-        groupList = repository.fe
+        groupList = repository.fetch()
     }
     
     override func configureView() {
@@ -132,7 +132,9 @@ class ToDoViewController: BaseViewController {
     @objc func rightToolbarItemClicked(_ sender : UIButton) {
         
         let vc =  NewGroupViewController()
-
+        vc.uiUpdate = {
+            self.mainView.groupTableView.reloadData()
+        }
         present(UINavigationController(rootViewController: vc), animated: true)
         
     }
@@ -158,6 +160,8 @@ extension ToDoViewController : UITableViewDelegate, UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.identifier, for: indexPath)
         cell.backgroundColor = .darkGray
+        cell.selectionStyle = .none
+        
         cell.textLabel?.textColor = .white
         
         cell.textLabel?.text = "hi"
@@ -170,4 +174,3 @@ extension ToDoViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat { .leastNormalMagnitude }
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat { .leastNormalMagnitude }
 }
-
