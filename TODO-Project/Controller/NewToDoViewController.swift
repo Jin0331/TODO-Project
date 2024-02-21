@@ -68,7 +68,9 @@ class NewToDoViewController: BaseViewController {
                              completed: false
         )
         
-        repository.createItem(item)
+        repository.createRelation(destination: taskGroupList, from: item)
+        
+//        taskGroupList.todo.append(item)
         
         // PK별 이미지 추가
         if let image = mainView.subItemView[NewToDoViewEnum.addImage.index].rightImageView.image {
@@ -133,7 +135,8 @@ class NewToDoViewController: BaseViewController {
     @objc func saveButtonEnable(_ sender : UITextField) {
         
         print(#function)
-        if let title = sender.text, title.count > 1 {
+        if let title = sender.text, title.count > 1, 
+            let taskGroup = mainView.subItemView[NewToDoViewEnum.group.index].subLabel.text {
             navigationItem.rightBarButtonItem?.isEnabled = true
             
         } else {
