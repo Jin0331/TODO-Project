@@ -16,6 +16,7 @@ enum NewToDoViewEnum : Int, CaseIterable {
     case tag
     case priority
     case addImage
+    case group
     
     var title : String{
         switch self {
@@ -27,6 +28,8 @@ enum NewToDoViewEnum : Int, CaseIterable {
             return "우선 순위"
         case .addImage:
             return "이미지 추가"
+        case .group :
+            return "목록"
         }
     }
     
@@ -105,7 +108,7 @@ class NewToDoView : BaseView {
         bottomStackView.snp.makeConstraints { make in
             make.top.equalTo(topView.snp.bottom).offset(20)
             make.horizontalEdges.equalTo(topView)
-            make.height.equalTo(270)
+            make.height.equalTo(340)
         }
     }
     

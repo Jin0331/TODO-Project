@@ -12,6 +12,7 @@ import Then
 class PriorityViewController: BaseViewController {
     
     var prioritySegmentSpace : ((Int) -> Void)?
+    var navTitle : String?
     
     let prioritySegment = UISegmentedControl(items: ["Low","Medium","High"]).then {
         $0.selectedSegmentIndex = 0
@@ -34,6 +35,14 @@ class PriorityViewController: BaseViewController {
             make.height.equalTo(40)
             make.centerX.equalTo(view)
             make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
+        }
+    }
+    
+    override func configureNavigation() {
+        super.configureNavigation()
+        
+        if let navTitle {
+            navigationItem.title = navTitle
         }
     }
     

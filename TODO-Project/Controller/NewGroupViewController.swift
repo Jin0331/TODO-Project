@@ -62,6 +62,10 @@ class NewGroupViewController: BaseViewController {
         
         // Icon property 저장 (embedded
         let icon = Icon()
+        
+        print(#function, tintColor, systemIcon)
+        
+        
         icon.colorHex = tintColor!
         icon.systemIcon = systemIcon!
         

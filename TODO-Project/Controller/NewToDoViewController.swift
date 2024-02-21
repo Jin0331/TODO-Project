@@ -12,7 +12,8 @@ class NewToDoViewController: BaseViewController {
     
     let mainView = NewToDoView()
     let repository = RealmRepository()
-    var countUpdate : (() -> Void)?
+    var countUpdate : (() -> Void)? // main으로 보내는 closure
+    var taskGroupList : TaskGroup!
     
     override func loadView() {
         self.view = mainView
@@ -92,18 +93,21 @@ class NewToDoViewController: BaseViewController {
         switch eCase {
         case .endTime :
             let vc = DateViewController()
+            vc.navTitle = eCase.title
             vc.datePickerSpace = { value in
                 self.mainView.subItemView[eCase.index].subLabel.text = value.toString(dateFormat: "yy.MM.dd H:m")
             }
             navigationController?.pushViewController(vc, animated: true)
         case .tag :
             let vc = TagViewController()
+            vc.navTitle = eCase.title
             vc.tagTextFieldSpace = { value in
                 self.mainView.subItemView[eCase.index].subLabel.text = value
             }
             navigationController?.pushViewController(vc, animated: true)
         case .priority :
             let vc = PriorityViewController()
+            vc.navTitle = eCase.title
             vc.prioritySegmentSpace = { value in
                 self.mainView.subItemView[eCase.index].subLabel.text = "\(value)"
             }
@@ -114,6 +118,15 @@ class NewToDoViewController: BaseViewController {
             vc.delegate = self
 
             present(vc, animated: true)
+        case .group :
+            let vc = GroupViewController()
+            vc.navTitle = eCase.title
+            vc.taskGroupListSender = { value in
+                self.taskGroupList = value
+                self.mainView.subItemView[eCase.index].subLabel.text = "\(self.taskGroupList.groupName)"
+            }
+            
+            navigationController?.pushViewController(vc, animated: true)
         }
     }
     

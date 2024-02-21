@@ -44,12 +44,10 @@ class ToDoViewController: BaseViewController {
         notificationToken = groupList.observe { [unowned self] changes in
             switch changes {
                 
-                // 3
             case .initial(let users):
                 print("Initial count: \(users.count)")
                 self.toolbarItems?[0].isEnabled = users.count == 0 ? false : true // letft toolbar 활성화
                 
-                // 4
             case .update(let users, let deletions, let insertions, let modifications):
                 print("Update count: \(users.count)")
                 print("Delete count: \(deletions.count)")
