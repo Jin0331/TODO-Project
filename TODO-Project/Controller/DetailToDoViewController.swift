@@ -23,6 +23,7 @@ class DetailToDoViewController: NewToDoViewController {
         mainView.subItemView[NewToDoViewEnum.tag.index].subLabel.text = dataList.tag
         mainView.subItemView[NewToDoViewEnum.priority.index].subLabel.text = dataList.priority
         mainView.subItemView[NewToDoViewEnum.addImage.index].rightImageView.image = loadImageToDocument(pk: dataList._id.stringValue)
+        mainView.subItemView[NewToDoViewEnum.group.index].subLabel.text = dataList.taskGroup.first?.groupName
         
     }
     
