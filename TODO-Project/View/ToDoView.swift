@@ -49,6 +49,31 @@ enum ToDoViewEnum {
             }
         }
         
+        var index : Int {
+            switch self {
+                
+            case .today:
+                return 0
+            case .all:
+                return 1
+            case .completed:
+                return 2
+            }
+        }
+        
+        var count : String {
+            let repository = RealmRepository()
+            
+            switch self {
+            case .today:
+                return String(repository.fetchToday().count)
+            case .all:
+                return String(repository.fetchAll().count)
+            case .completed:
+                return String(repository.fetchComplete().count)
+            }
+        }
+        
     }
     
     enum rightStack : String, CaseIterable {
@@ -79,6 +104,26 @@ enum ToDoViewEnum {
                 return .systemOrange
             case .flag :
                 return .systemYellow
+            }
+        }
+        
+        var index : Int {
+            switch self {
+            case .plan:
+                return 0
+            case .flag:
+                return 1
+            }
+        }
+        
+        var count : String {
+            let repository = RealmRepository()
+            
+            switch self {
+            case .plan:
+                return String(repository.fetchTomorrow().count)
+            case .flag:
+                return String(repository.fetchFlag().count)
             }
         }
     }
