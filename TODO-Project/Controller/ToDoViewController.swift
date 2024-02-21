@@ -12,6 +12,7 @@ class ToDoViewController: BaseViewController {
     
     let mainView = ToDoView()
     let repository = RealmRepository()
+    var notificationToken: NotificationToken?
     var groupList : Results<TaskGroup>!
     
     override func loadView() {
@@ -38,6 +39,27 @@ class ToDoViewController: BaseViewController {
         
         // tableView
         groupList = repository.fetch()
+        
+        // realm notification
+        notificationToken = groupList.observe { [unowned self] changes in
+            switch changes {
+                
+                // 3
+            case .initial(let users):
+                print("Initial count: \(users.count)")
+                self.toolbarItems?[0].isEnabled = users.count == 0 ? false : true // letft toolbar 활성화
+                
+                // 4
+            case .update(let users, let deletions, let insertions, let modifications):
+                print("Update count: \(users.count)")
+                print("Delete count: \(deletions.count)")
+                print("Insert count: \(insertions.count)")
+                print("Modification count: \(modifications.count)")
+                self.toolbarItems?[0].isEnabled = users.count == 0 ? false : true // letft toolbar 활성화
+            case .error(let error):
+                fatalError("\(error)")
+            }
+        }
     }
     
     override func configureView() {
@@ -159,7 +181,7 @@ extension ToDoViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: CommonTableViewCell.identifier, for: indexPath) as! CommonTableViewCell
-
+        
         let row = groupList[indexPath.row]
         
         cell.receiveData(data: row)
