@@ -21,6 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.shared.enableAutoToolbar = false
         IQKeyboardManager.shared.resignOnTouchOutside = true
         
+        print("Realm Location : \(Realm.Configuration.defaultConfiguration.fileURL!)")
+        print("Realm Schema version : \(Realm.Configuration.defaultConfiguration.schemaVersion)")
+        
         //MARK: - realm schema update
         let configuration = Realm.Configuration(schemaVersion: 1) { migration, oldSchemeVersion in
             

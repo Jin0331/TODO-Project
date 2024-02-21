@@ -146,7 +146,15 @@ final class RealmRepository {
         do {
             try realm.write {
                 realm.create(ToDoTable.self,
-                             value: ["_id": id, "title":title, "memo": memo, "endDate" : endDate,"tag":tag, "priority":priority], update: .modified)
+                             value: ["_id": id, 
+                                     "title":title,
+                                     "memo": memo,
+                                     "endDate" : endDate,
+                                     "tag":tag,
+                                     "priority":priority,
+                                     "taskGroup":nil
+                                    ],
+                             update: .modified)
             }
         } catch {
             print(error)
