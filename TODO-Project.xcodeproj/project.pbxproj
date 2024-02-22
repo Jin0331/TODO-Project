@@ -23,6 +23,7 @@
 		DB27BA0C2B84EDBF003198FF /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB27BA0B2B84EDBF003198FF /* Icon.swift */; };
 		DB27BA0E2B850852003198FF /* UIColor + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB27BA0D2B850852003198FF /* UIColor + Extension.swift */; };
 		DB27BA122B851E69003198FF /* CommonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB27BA112B851E69003198FF /* CommonTableViewCell.swift */; };
+		DB27BA1D2B85EB8F003198FF /* GroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB27BA1C2B85EB8F003198FF /* GroupViewController.swift */; };
 		DB336FAA2B84C56C008A9B43 /* NewGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB336FA92B84C56C008A9B43 /* NewGroupViewController.swift */; };
 		DB336FAC2B84C6CE008A9B43 /* NewGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB336FAB2B84C6CE008A9B43 /* NewGroup.swift */; };
 		DB7C10922B7E368C0001B149 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = DB7C10912B7E368C0001B149 /* Realm */; };
@@ -66,6 +67,7 @@
 		DB27BA0B2B84EDBF003198FF /* Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
 		DB27BA0D2B850852003198FF /* UIColor + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + Extension.swift"; sourceTree = "<group>"; };
 		DB27BA112B851E69003198FF /* CommonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonTableViewCell.swift; sourceTree = "<group>"; };
+		DB27BA1C2B85EB8F003198FF /* GroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupViewController.swift; sourceTree = "<group>"; };
 		DB336FA92B84C56C008A9B43 /* NewGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGroupViewController.swift; sourceTree = "<group>"; };
 		DB336FAB2B84C6CE008A9B43 /* NewGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGroup.swift; sourceTree = "<group>"; };
 		DB7C10952B7E36C70001B149 /* RealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 				DBF3ABCD2B7CB908001ABADF /* DateViewController.swift */,
 				DBF3ABCF2B7CFDCC001ABADF /* TagViewController.swift */,
 				DBF3ABD12B7D02B2001ABADF /* PriorityViewController.swift */,
+				DB27BA1C2B85EB8F003198FF /* GroupViewController.swift */,
 			);
 			path = Sender;
 			sourceTree = "<group>";
@@ -323,6 +326,7 @@
 				DB27BA122B851E69003198FF /* CommonTableViewCell.swift in Sources */,
 				DB7C10B92B838BFE0001B149 /* CalendarViewController.swift in Sources */,
 				DB7C10A52B7E75350001B149 /* BlockBarButtonItem.swift in Sources */,
+				DB27BA1D2B85EB8F003198FF /* GroupViewController.swift in Sources */,
 				DBF3ABCE2B7CB908001ABADF /* DateViewController.swift in Sources */,
 				DB7C10992B7E421E0001B149 /* Date + Extension.swift in Sources */,
 				DB7C10B22B8232050001B149 /* DetailToDoViewController.swift in Sources */,

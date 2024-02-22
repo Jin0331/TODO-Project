@@ -12,7 +12,7 @@ class TaskGroup : Object {
     @Persisted(primaryKey: true) var _id : ObjectId
     @Persisted var groupName : String
     @Persisted var regDate : Date
-    @Persisted var type : String? //TODO: - 목록 유형은 추후에...
+    @Persisted var listType : String? //TODO: - 목록 유형은 추후에...
     
     @Persisted var icon : Icon? // embedded
     @Persisted var todo : List<ToDoTable>

@@ -12,6 +12,7 @@ import Then
 class TagViewController: BaseViewController {
     
     var tagTextFieldSpace : ((String) -> Void)?
+    var navTitle : String?
     
     let tagTextField = UITextField().then {
         $0.attributedPlaceholder = NSAttributedString(string: "태그를 입력하세요",
@@ -30,6 +31,14 @@ class TagViewController: BaseViewController {
     
     override func configureHierarchy() {
         view.addSubview(tagTextField)
+    }
+    
+    override func configureNavigation() {
+        super.configureNavigation()
+        
+        if let navTitle {
+            navigationItem.title = navTitle
+        }
     }
     
     override func configureLayout() {

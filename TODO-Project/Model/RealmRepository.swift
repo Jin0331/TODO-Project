@@ -66,6 +66,18 @@ final class RealmRepository {
         }
     }
     //MARK: - GroupTask Table 관련
+    func createRelation(destination : TaskGroup, from : ToDoTable) {
+        do {
+            try realm.write {
+                destination.todo.append(from)
+            }
+        } catch {
+            print(error)
+        }
+        
+    }
+    
+    
     func fetch() -> Results<TaskGroup> {
         
         return realm.objects(TaskGroup.self)
@@ -134,7 +146,15 @@ final class RealmRepository {
         do {
             try realm.write {
                 realm.create(ToDoTable.self,
-                             value: ["_id": id, "title":title, "memo": memo, "endDate" : endDate,"tag":tag, "priority":priority], update: .modified)
+                             value: ["_id": id, 
+                                     "title":title,
+                                     "memo": memo,
+                                     "endDate" : endDate,
+                                     "tag":tag,
+                                     "priority":priority,
+                                     "taskGroup":nil
+                                    ],
+                             update: .modified)
             }
         } catch {
             print(error)

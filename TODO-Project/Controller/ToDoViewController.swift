@@ -12,6 +12,7 @@ class ToDoViewController: BaseViewController {
     
     let mainView = ToDoView()
     let repository = RealmRepository()
+    var notificationToken: NotificationToken?
     var groupList : Results<TaskGroup>!
     
     override func loadView() {
@@ -38,6 +39,24 @@ class ToDoViewController: BaseViewController {
         
         // tableView
         groupList = repository.fetch()
+        
+        // realm notification
+        notificationToken = groupList.observe { [unowned self] changes in
+            switch changes {
+                
+            case .initial(let users):
+                print("Initial count: \(users.count)")
+                self.toolbarItems?[0].isEnabled = users.count == 0 ? false : true // letft toolbar 활성화
+                self.mainView.groupTableView.reloadData()
+                
+            case .update(let users, let deletions, let insertions, let modifications):
+                print("Update count: \(users.count)","Delete count: \(deletions.count)","Insert count: \(insertions.count)","Modification count: \(modifications.count)")
+                self.toolbarItems?[0].isEnabled = users.count == 0 ? false : true // letft toolbar 활성화
+                self.mainView.groupTableView.reloadData()
+            case .error(let error):
+                fatalError("\(error)")
+            }
+        }
     }
     
     override func configureView() {
@@ -140,14 +159,13 @@ class ToDoViewController: BaseViewController {
     }
     
     func countUpdate() {
-        //TODO: - Date filter 방법 찾아야됨.
-        //TODO: - 여기 리팩토링은 어케????
-        mainView.leftSubView[0].countLabel.text = String(repository.fetchToday().count) // 오늘
-        mainView.leftSubView[1].countLabel.text = String(repository.fetchAll().count) // 전체
-        mainView.leftSubView[2].countLabel.text = String(repository.fetchComplete().count) // 완료
+        ToDoViewEnum.leftStack.allCases.forEach {
+            mainView.leftSubView[$0.index].countLabel.text = $0.count
+        }
         
-        mainView.rightSubView[0].countLabel.text = String(repository.fetchTomorrow().count) // 예정
-        mainView.rightSubView[1].countLabel.text = String(repository.fetchFlag().count) // 깃발
+        ToDoViewEnum.rightStack.allCases.forEach {
+            mainView.rightSubView[$0.index].countLabel.text = $0.count
+        }
     }
 }
 
@@ -159,7 +177,7 @@ extension ToDoViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: CommonTableViewCell.identifier, for: indexPath) as! CommonTableViewCell
-
+        
         let row = groupList[indexPath.row]
         
         cell.receiveData(data: row)

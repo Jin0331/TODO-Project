@@ -12,7 +12,8 @@ import Then
 class DateViewController: BaseViewController {
     
     var datePickerSpace : ((Date) -> Void)?
-
+    var navTitle : String?
+    
     let datePicker = UIDatePicker().then {
         $0.preferredDatePickerStyle = .wheels
         $0.datePickerMode = .date
@@ -29,6 +30,14 @@ class DateViewController: BaseViewController {
     override func configureHierarchy() {
         view.addSubview(datePicker)
         
+    }
+    
+    override func configureNavigation() {
+        super.configureNavigation()
+        
+        if let navTitle {
+            navigationItem.title = navTitle
+        }
     }
   
     override func configureLayout() {
